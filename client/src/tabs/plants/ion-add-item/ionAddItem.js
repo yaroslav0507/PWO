@@ -7,8 +7,11 @@
 
     function ionAddItem(){
 	return {
+	    templateUrl: 'tabs/plants/ion-add-item/ion-add-item.html',
 	    restrict: 'EA',
-	    templateUrl: 'tabs/plants/ion-add-item/ion-add-item.html'
+	    scope: {
+		targetState: '@'
+	    }
 	}
     }
 })();

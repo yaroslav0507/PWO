@@ -22,32 +22,6 @@
 		    }
 		}
 	    })
-	    .state('tab.plants', {
-		url: '/plants',
-		views: {
-		    'tab-plants': {
-			templateUrl: 'tabs/plants/tab-plants.html',
-			controller: 'PlantsController',
-			controllerAs: 'plantsCtrl',
-			resolve: {
-			    plants: resolvePlants
-			}
-		    }
-		}
-	    })
-	    .state('tab.plant-detail', {
-		url: '/plants/:plantId',
-		views: {
-		    'tab-plants': {
-			templateUrl: 'tabs/plants/details/plant-detail.html',
-			controller: 'PlantDetailController',
-			controllerAs: 'plantDetailCtrl',
-			resolve: {
-			    plant: resolvePlantDetails
-			}
-		    }
-		}
-	    })
 	    .state('tab.account', {
 		url: '/account',
 		views: {
@@ -59,14 +33,6 @@
 	    });
 
 	$urlRouterProvider.otherwise('/tab/dash');
-
-	function resolvePlants(PlantsService) {
-	    return PlantsService.getAll();
-	}
-
-	function resolvePlantDetails(PlantsService, $stateParams) {
-	    return PlantsService.getPlant($stateParams.plantId)
-	}
     }
 
 })();

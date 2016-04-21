@@ -1,0 +1,22 @@
+<ion-view view-title="Add New Plant">
+    <ion-content>
+        <div class="list">
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Plant Name</span>
+                <input type="text" placeholder="Plant Name">
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Watering Frequency</span>
+                <input placeholder="Watering Frequency"
+                       ng-model="newPlantCtrl.wateringFrequency">
+            </label>
+            <div class="item range">
+                <i class="icon ion-ios-flask-outline"></i>
+                <input type="range"
+                       name="volume"
+                       ng-model="newPlantCtrl.wateringFrequency">
+                <i class="icon ion-ios-flask"></i>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
