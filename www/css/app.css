@@ -9790,6 +9790,11 @@ table {
   font-weight: 700;
   src: url("../fonts/Roboto/Roboto-Bold.ttf"); }
 
+.button.button-green {
+  background-color: #44B39D;
+  border-color: transparent;
+  color: #fff; }
+
 body {
   font-family: 'Roboto'; }
 
@@ -9801,7 +9806,7 @@ body {
   height: 45px;
   border-radius: 100%;
   font-size: 34px;
-  background: #2ecc71;
+  background: #44B39D;
   color: #FFF;
   text-align: center;
   padding: 5px;
@@ -9809,5 +9814,8 @@ body {
   cursor: pointer; }
   .tabs-top .floating-button {
     bottom: 25px; }
+
+.watering-chart {
+  height: 30vh; }
 
 /*# sourceMappingURL=maps/app.css.map */

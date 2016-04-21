@@ -1,0 +1,9 @@
+.button{
+  &.button{
+    &-green{
+      background-color: $flatGreen;
+      border-color: transparent;
+      color: #fff;
+    }
+  }
+}

@@ -1,12 +1,15 @@
 <ion-view view-title="Add New Plant">
     <ion-content>
         <div class="list">
-            <label class="item item-input item-floating-label">
+            <label class="item item-input item-stacked-label">
                 <span class="input-label">Plant Name</span>
-                <input type="text" placeholder="Plant Name">
+                <input type="text" placeholder="Enter plant name">
             </label>
 
-            <pie-chart data="newPlantCtrl.data" options="newPlantCtrl.options"></pie-chart>
+            <div class="watering-chart">
+                <pie-chart data="newPlantCtrl.data"
+                           options="newPlantCtrl.options"></pie-chart>
+            </div>
 
             <div class="item range">
                 <i class="icon ion-ios-flask-outline"></i>
@@ -16,6 +19,10 @@
                        ng-change="newPlantCtrl.onFrequencyChange()">
                 <i class="icon ion-ios-flask"></i>
             </div>
+        </div>
+
+        <div class="padding">
+            <button class="button button-block button-green">Add Plant</button>
         </div>
     </ion-content>
 </ion-view>
