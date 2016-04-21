@@ -64413,27 +64413,34 @@ IonicModule
 		views: {
 		    'tab-dash': {
 			templateUrl: 'tabs/dash/tab-dash.html',
-			controller: 'DashController'
+			controller: 'DashboardController',
+			controllerAs: 'dashboardCtrl'
 		    }
 		}
 	    })
-	    .state('tab.chats', {
-		url: '/chats',
+	    .state('tab.plants', {
+		url: '/plants',
 		views: {
-		    'tab-chats': {
-			templateUrl: 'tabs/chats/tab-chats.html',
-			controller: 'ChatsController',
-			controllerAs: 'chatsCtrl'
+		    'tab-plants': {
+			templateUrl: 'tabs/plants/tab-plants.html',
+			controller: 'PlantsController',
+			controllerAs: 'plantsCtrl',
+			resolve: {
+			    plants: resolvePlants
+			}
 		    }
 		}
 	    })
-	    .state('tab.chat-detail', {
-		url: '/chats/:chatId',
+	    .state('tab.plant-detail', {
+		url: '/plants/:plantId',
 		views: {
-		    'tab-chats': {
-			templateUrl: 'tabs/chats/details/chat-detail.html',
-			controller: 'ChatDetailController',
-			controllerAs: 'chatDetailCtrl'
+		    'tab-plants': {
+			templateUrl: 'tabs/plants/details/plant-detail.html',
+			controller: 'PlantDetailController',
+			controllerAs: 'plantDetailCtrl',
+			resolve: {
+			    plant: resolvePlantDetails
+			}
 		    }
 		}
 	    })
@@ -64448,7 +64455,16 @@ IonicModule
 	    });
 
 	$urlRouterProvider.otherwise('/tab/dash');
+
+	function resolvePlants(PlantsService) {
+	    return PlantsService.getAll();
+	}
+
+	function resolvePlantDetails(PlantsService, $stateParams) {
+	    return PlantsService.getPlant($stateParams.plantId)
+	}
     }
+
 })();
 
 
@@ -64482,7 +64498,7 @@ IonicModule
 	.module('app')
 	.controller('AccountController', AccountController);
 
-    function AccountController($stateParams, Chats) {
+    function AccountController($stateParams, PlantsService) {
 	let vm = this;
 
 	angular.extend(vm, {
@@ -64499,16 +64515,36 @@ IonicModule
 
     angular
 	.module('app')
-	.controller('ChatsController', ChatsController);
+	.controller('DashboardController', DashboardController);
 
-    function ChatsController($stateParams, Chats) {
+    function DashboardController(PlantsService) {
 	let vm = this;
 
 	angular.extend(vm, {
-	    chats: Chats.getAll(),
-	    remove: function (chat) {
-		Chats.removeChat(chat);
+	    remove: function (plant) {
+		PlantsService.removePlant(plant);
 	    }
+	});
+    }
+})();
+
+(function () {
+    'use strict';
+
+    angular
+	.module('app')
+	.controller('PlantsController', PlantsController);
+
+    function PlantsController(PlantsService, plants) {
+	let vm = this;
+
+	function removePlant(plant) {
+	    PlantsService.removePlant(plant);
+	}
+
+	angular.extend(vm, {
+	    plants: plants,
+	    removePlant: removePlant
 	});
 
     }
@@ -64519,77 +64555,59 @@ IonicModule
 
     angular
 	.module('app')
-	.factory('Chats', function () {
-	    var chats = [{
-		id: 0,
-		name: 'Ben Sparrow',
-		lastText: 'You on your way?',
-		face: 'img/ben.png'
-	    }, {
-		id: 1,
-		name: 'Max Lynx',
-		lastText: 'Hey, it\'s me',
-		face: 'img/max.png'
-	    }, {
-		id: 2,
-		name: 'Adam Bradleyson',
-		lastText: 'I should buy a boat',
-		face: 'img/adam.jpg'
-	    }, {
-		id: 3,
-		name: 'Perry Governor',
-		lastText: 'Look at my mukluks!',
-		face: 'img/perry.png'
-	    }, {
-		id: 4,
-		name: 'Mike Harrington',
-		lastText: 'This is wicked good ice cream.',
-		face: 'img/mike.png'
-	    }];
+	.factory('PlantsService', PlantsService);
 
-	    return {
-		getAll: getAll,
-		removeChat: removeChat,
-		getChat: getChat
-	    };
+    function PlantsService() {
+	var plants = [{
+	    id: 0,
+	    name: 'Ben Sparrow',
+	    lastText: 'You on your way?',
+	    face: 'img/ben.png'
+	}, {
+	    id: 1,
+	    name: 'Max Lynx',
+	    lastText: 'Hey, it\'s me',
+	    face: 'img/max.png'
+	}, {
+	    id: 2,
+	    name: 'Adam Bradleyson',
+	    lastText: 'I should buy a boat',
+	    face: 'img/adam.jpg'
+	}, {
+	    id: 3,
+	    name: 'Perry Governor',
+	    lastText: 'Look at my mukluks!',
+	    face: 'img/perry.png'
+	}, {
+	    id: 4,
+	    name: 'Mike Harrington',
+	    lastText: 'This is wicked good ice cream.',
+	    face: 'img/mike.png'
+	}];
 
-	    function getAll() {
-		return chats;
-	    }
+	return {
+	    getAll: getAll,
+	    removePlant: removePlant,
+	    getPlant: getPlant
+	};
 
-	    function removeChat(chat) {
-		chats.splice(chats.indexOf(chat), 1);
-	    }
+	function getAll() {
+	    return plants;
+	}
 
-	    function getChat(chatId) {
-		for (var i = 0; i < chats.length; i++) {
-		    if (chats[i].id === parseInt(chatId)) {
-			return chats[i];
-		    }
+	function removePlant(plant) {
+	    plants.splice(plants.indexOf(plant), 1);
+	}
+
+	function getPlant(plantId) {
+	    for (var i = 0; i < plants.length; i++) {
+		if (plants[i].id === parseInt(plantId)) {
+		    return plants[i];
 		}
-		return null;
 	    }
+	    return null;
+	}
 
-	});
-
-})();
-
-(function () {
-    'use strict';
-
-    angular
-	.module('app')
-	.controller('DashController', DashController);
-
-    function DashController(Chats) {
-	let vm = this;
-
-	angular.extend(vm, {
-	    chats: Chats.getAll(),
-	    remove: function (chat) {
-		Chats.removeChat(chat);
-	    }
-	});
     }
 })();
 
@@ -64598,21 +64616,21 @@ IonicModule
 
     angular
 	.module('app')
-	.controller('ChatDetailController', ChatDetailController);
+	.controller('PlantDetailController', PlantDetailController);
 
-    function ChatDetailController(Chats, $stateParams) {
+    function PlantDetailController(plant) {
 	let vm = this;
 
 	angular.extend(vm, {
-	    chat: Chats.getChat($stateParams.chatId)
+	    plant: plant
 	});
 
     }
 })();
 
-angular.module("app").run(["$templateCache", function($templateCache) {$templateCache.put("tabs/tabs.html","<!--\nCreate tabs with an icon and label, using the tabs-positive style.\nEach tab\'s child <ion-nav-view> directive will have its own\nnavigation history that also transitions its views in and out.\n-->\n<ion-tabs class=\"tabs-icon-top tabs-color-active-positive\">\n\n  <!-- Dashboard Tab -->\n  <ion-tab title=\"Status\" icon-off=\"ion-ios-pulse\" icon-on=\"ion-ios-pulse-strong\" href=\"#/tab/dash\">\n    <ion-nav-view name=\"tab-dash\"></ion-nav-view>\n  </ion-tab>\n\n  <!-- Chats Tab -->\n  <ion-tab title=\"Chats\" icon-off=\"ion-ios-chatboxes-outline\" icon-on=\"ion-ios-chatboxes\" href=\"#/tab/chats\">\n    <ion-nav-view name=\"tab-chats\"></ion-nav-view>\n  </ion-tab>\n\n  <!-- Account Tab -->\n  <ion-tab title=\"Account\" icon-off=\"ion-ios-gear-outline\" icon-on=\"ion-ios-gear\" href=\"#/tab/account\">\n    <ion-nav-view name=\"tab-account\"></ion-nav-view>\n  </ion-tab>\n\n\n</ion-tabs>\n");
+angular.module("app").run(["$templateCache", function($templateCache) {$templateCache.put("tabs/tabs.html","<!--\nCreate tabs with an icon and label, using the tabs-positive style.\nEach tab\'s child <ion-nav-view> directive will have its own\nnavigation history that also transitions its views in and out.\n-->\n<ion-tabs class=\"tabs-icon-top tabs-color-active-positive\">\n\n  <!-- Dashboard Tab -->\n  <ion-tab title=\"Dashboard\" icon-off=\"ion-ios-pulse\" icon-on=\"ion-ios-pulse-strong\" href=\"#/tab/dash\">\n    <ion-nav-view name=\"tab-dash\"></ion-nav-view>\n  </ion-tab>\n\n  <!-- Chats Tab -->\n  <ion-tab title=\"Plants\" icon-off=\"ion-ios-chatboxes-outline\" icon-on=\"ion-ios-chatboxes\" href=\"#/tab/plants\">\n    <ion-nav-view name=\"tab-plants\"></ion-nav-view>\n  </ion-tab>\n\n  <!-- Account Tab -->\n  <ion-tab title=\"Settings\" icon-off=\"ion-ios-gear-outline\" icon-on=\"ion-ios-gear\" href=\"#/tab/account\">\n    <ion-nav-view name=\"tab-account\"></ion-nav-view>\n  </ion-tab>\n\n\n</ion-tabs>\n");
 $templateCache.put("tabs/account/tab-account.html","<ion-view view-title=\"Account\">\n  <ion-content>\n    <ion-list>\n    <ion-toggle  ng-model=\"settings.enableFriends\">\n        Enable Friends\n    </ion-toggle>\n    </ion-list>\n  </ion-content>\n</ion-view>\n");
-$templateCache.put("tabs/chats/tab-chats.html","<ion-view view-title=\"Chats\">\n  <ion-content>\n    <ion-list>\n      <ion-item class=\"item-remove-animate item-avatar item-icon-right\" ng-repeat=\"chat in chatsCtrl.chats\" type=\"item-text-wrap\" href=\"#/tab/chats/{{chat.id}}\">\n        <img ng-src=\"{{chat.face}}\">\n        <h2>{{chat.name}}</h2>\n        <p>{{chat.lastText}}</p>\n        <i class=\"icon ion-chevron-right icon-accessory\"></i>\n\n        <ion-option-button class=\"button-assertive\" ng-click=\"chatsCtrl.remove(chat)\">\n          Delete\n        </ion-option-button>\n      </ion-item>\n    </ion-list>\n  </ion-content>\n</ion-view>\n");
-$templateCache.put("tabs/dash/tab-dash.html","<ion-view view-title=\"Dashboard\">\n  <ion-content class=\"padding\">\n    <h2>Welcome to Ionic</h2>\n    <p>\n    This is the Ionic starter for tabs-based apps. For other starters and ready-made templates, check out the <a href=\"http://market.ionic.io/starters\" target=\"_blank\">Ionic Market</a>.\n    </p>\n    <p>\n      To edit the content of each tab, edit the corresponding template file in <code>www/templates/</code>. This template is <code>www/templates/tab-dash.html</code>\n    </p>\n    <p>\n    If you need help with your app, join the Ionic Community on the <a href=\"http://forum.ionicframework.com\" target=\"_blank\">Ionic Forum</a>. Make sure to <a href=\"http://twitter.com/ionicframework\" target=\"_blank\">follow us</a> on Twitter to get important updates and announcements for Ionic developers.\n    </p>\n    <p>\n      For help sending push notifications, join the <a href=\"https://apps.ionic.io/signup\" target=\"_blank\">Ionic Platform</a> and check out <a href=\"http://docs.ionic.io/docs/push-overview\" target=\"_blank\">Ionic Push</a>. We also have other services available.\n    </p>\n  </ion-content>\n</ion-view>\n");
-$templateCache.put("tabs/chats/details/chat-detail.html","<!--\n  This template loads for the \'tab.friend-detail\' state (app.js)\n  \'friend\' is a $scope variable created in the FriendsCtrl controller (controllers.js)\n  The FriendsCtrl pulls data from the Friends service (service.js)\n  The Friends service returns an array of friend data\n-->\n<ion-view view-title=\"{{chatDetailCtrl.chat.name}}\">\n  <ion-content class=\"padding\">\n    <img ng-src=\"{{chatDetailCtrl.chat.face}}\" style=\"width: 64px; height: 64px\">\n    <p>\n      {{chatDetailCtrl.chat.lastText}}\n    </p>\n  </ion-content>\n</ion-view>\n");}]);
+$templateCache.put("tabs/dash/tab-dash.html","<ion-view view-title=\"Wattering Dashboard\">\n  <ion-content class=\"padding\">\n    <h2>Welcome to Ionic</h2>\n    <p>\n    This is the Ionic starter for tabs-based apps. For other starters and ready-made templates, check out the <a href=\"http://market.ionic.io/starters\" target=\"_blank\">Ionic Market</a>.\n    </p>\n    <p>\n      To edit the content of each tab, edit the corresponding template file in <code>www/templates/</code>. This template is <code>www/templates/tab-dash.html</code>\n    </p>\n    <p>\n    If you need help with your app, join the Ionic Community on the <a href=\"http://forum.ionicframework.com\" target=\"_blank\">Ionic Forum</a>. Make sure to <a href=\"http://twitter.com/ionicframework\" target=\"_blank\">follow us</a> on Twitter to get important updates and announcements for Ionic developers.\n    </p>\n    <p>\n      For help sending push notifications, join the <a href=\"https://apps.ionic.io/signup\" target=\"_blank\">Ionic Platform</a> and check out <a href=\"http://docs.ionic.io/docs/push-overview\" target=\"_blank\">Ionic Push</a>. We also have other services available.\n    </p>\n  </ion-content>\n</ion-view>\n");
+$templateCache.put("tabs/plants/tab-plants.html","<ion-view view-title=\"Plants\">\n  <ion-content>\n    <ion-list>\n      <ion-item class=\"item-remove-animate item-avatar item-icon-right\" ng-repeat=\"plant in plantsCtrl.plants\" type=\"item-text-wrap\" href=\"#/tab/plants/{{plant.id}}\">\n        <img ng-src=\"{{plant.face}}\">\n        <h2>{{plant.name}}</h2>\n        <p>{{plant.lastText}}</p>\n        <i class=\"icon ion-chevron-right icon-accessory\"></i>\n\n        <ion-option-button class=\"button-assertive\" ng-click=\"plantsCtrl.remove(plant)\">\n          Delete\n        </ion-option-button>\n      </ion-item>\n    </ion-list>\n  </ion-content>\n</ion-view>\n");
+$templateCache.put("tabs/plants/details/plant-detail.html","<!--\n  This template loads for the \'tab.friend-detail\' state (app.js)\n  \'friend\' is a $scope variable created in the FriendsCtrl controller (controllers.js)\n  The FriendsCtrl pulls data from the Friends service (service.js)\n  The Friends service returns an array of friend data\n-->\n<ion-view view-title=\"{{plantDetailCtrl.plant.name}}\">\n  <ion-content class=\"padding\">\n    <img ng-src=\"{{plantDetailCtrl.plant.face}}\" style=\"width: 64px; height: 64px\">\n    <p>\n      {{plantDetailCtrl.plant.lastText}}\n    </p>\n  </ion-content>\n</ion-view>\n");}]);
 //# sourceMappingURL=maps/app.js.map

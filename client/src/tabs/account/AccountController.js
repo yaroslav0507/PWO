@@ -5,7 +5,7 @@
 	.module('app')
 	.controller('AccountController', AccountController);
 
-    function AccountController($stateParams, Chats) {
+    function AccountController($stateParams, PlantsService) {
 	let vm = this;
 
 	angular.extend(vm, {

@@ -17,27 +17,34 @@
 		views: {
 		    'tab-dash': {
 			templateUrl: 'tabs/dash/tab-dash.html',
-			controller: 'DashController'
+			controller: 'DashboardController',
+			controllerAs: 'dashboardCtrl'
 		    }
 		}
 	    })
-	    .state('tab.chats', {
-		url: '/chats',
+	    .state('tab.plants', {
+		url: '/plants',
 		views: {
-		    'tab-chats': {
-			templateUrl: 'tabs/chats/tab-chats.html',
-			controller: 'ChatsController',
-			controllerAs: 'chatsCtrl'
+		    'tab-plants': {
+			templateUrl: 'tabs/plants/tab-plants.html',
+			controller: 'PlantsController',
+			controllerAs: 'plantsCtrl',
+			resolve: {
+			    plants: resolvePlants
+			}
 		    }
 		}
 	    })
-	    .state('tab.chat-detail', {
-		url: '/chats/:chatId',
+	    .state('tab.plant-detail', {
+		url: '/plants/:plantId',
 		views: {
-		    'tab-chats': {
-			templateUrl: 'tabs/chats/details/chat-detail.html',
-			controller: 'ChatDetailController',
-			controllerAs: 'chatDetailCtrl'
+		    'tab-plants': {
+			templateUrl: 'tabs/plants/details/plant-detail.html',
+			controller: 'PlantDetailController',
+			controllerAs: 'plantDetailCtrl',
+			resolve: {
+			    plant: resolvePlantDetails
+			}
 		    }
 		}
 	    })
@@ -52,7 +59,16 @@
 	    });
 
 	$urlRouterProvider.otherwise('/tab/dash');
+
+	function resolvePlants(PlantsService) {
+	    return PlantsService.getAll();
+	}
+
+	function resolvePlantDetails(PlantsService, $stateParams) {
+	    return PlantsService.getPlant($stateParams.plantId)
+	}
     }
+
 })();
 
 
