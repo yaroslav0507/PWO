@@ -5,16 +5,15 @@
                 <span class="input-label">Plant Name</span>
                 <input type="text" placeholder="Plant Name">
             </label>
-            <label class="item item-input item-floating-label">
-                <span class="input-label">Watering Frequency</span>
-                <input placeholder="Watering Frequency"
-                       ng-model="newPlantCtrl.wateringFrequency">
-            </label>
+
+            <pie-chart data="newPlantCtrl.data" options="newPlantCtrl.options"></pie-chart>
+
             <div class="item range">
                 <i class="icon ion-ios-flask-outline"></i>
                 <input type="range"
                        name="volume"
-                       ng-model="newPlantCtrl.wateringFrequency">
+                       ng-model="newPlantCtrl.wateringFrequency"
+                       ng-change="newPlantCtrl.onFrequencyChange()">
                 <i class="icon ion-ios-flask"></i>
             </div>
         </div>

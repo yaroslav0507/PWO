@@ -4,7 +4,9 @@ module.exports = function() {
 
    var vendors = {
        scripts: [
-           './client/vendors/ionic/js/ionic.bundle.js'
+           './client/vendors/ionic/js/ionic.bundle.js',
+           './client/vendors/d3/d3.min.js',
+           './client/vendors/pie-chart/dist/pie-chart.min.js'
        ],
        styles: [
            './client/vendors/ionic/css/ionic.css'

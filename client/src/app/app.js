@@ -3,7 +3,8 @@
 
     angular
 	.module('app', [
-	    'ionic'
+	    'ionic',
+	    'n3-pie-chart'
 	]);
 
 })();
