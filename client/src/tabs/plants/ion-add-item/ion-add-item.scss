@@ -1,0 +1,23 @@
+.floating-button{
+  position: absolute;
+  bottom: 75px;
+  right: 25px;
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  font-size: 34px;
+  background: #50BB3F;
+  color: #FFF;
+  text-align: center;
+  padding: 5px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+
+  @at-root {
+    .tabs-top{
+      .floating-button{
+        bottom: 25px;
+      }
+    }
+  }
+}
