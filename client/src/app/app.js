@@ -1,11 +1,9 @@
-(function(){
-  'use strict';
+(function () {
+    'use strict';
 
-  angular
-    .module('app', [
-
-    ]);
-
-  console.log(123);
+    angular
+	.module('app', [
+	    'ionic'
+	]);
 
 })();
