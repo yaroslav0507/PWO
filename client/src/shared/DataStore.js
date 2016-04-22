@@ -10,7 +10,8 @@
 
 	return {
 	    update: update,
-	    get: get
+	    get: get,
+	    clear: clear
 	};
 
 	function update(data) {
@@ -19,6 +20,10 @@
 
 	function get() {
 	    return JSON.parse(window.localStorage.getItem(STORAGE_NAME)) || [];
+	}
+
+	function clear() {
+	    window.localStorage.removeItem(STORAGE_NAME);
 	}
     }
 

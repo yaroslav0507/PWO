@@ -64433,7 +64433,11 @@ angular.module("n3-pie-chart",["n3-pie-utils"]).directive("pieChart",["$utils",f
 		views: {
 		    'tab-account': {
 			templateUrl: 'tabs/account/tab-account.html',
-			controller: 'AccountController'
+			controller: 'AccountController',
+			controllerAs: 'accountCtrl',
+			resolve: {
+			    stateAfterClearAll: function () { return '^.plants' }
+			}
 		    }
 		}
 	    });
@@ -64479,7 +64483,8 @@ angular.module("n3-pie-chart",["n3-pie-utils"]).directive("pieChart",["$utils",f
 
 	return {
 	    update: update,
-	    get: get
+	    get: get,
+	    clear: clear
 	};
 
 	function update(data) {
@@ -64488,6 +64493,10 @@ angular.module("n3-pie-chart",["n3-pie-utils"]).directive("pieChart",["$utils",f
 
 	function get() {
 	    return JSON.parse(window.localStorage.getItem(STORAGE_NAME)) || [];
+	}
+
+	function clear() {
+	    window.localStorage.removeItem(STORAGE_NAME);
 	}
     }
 
@@ -64500,15 +64509,17 @@ angular.module("n3-pie-chart",["n3-pie-utils"]).directive("pieChart",["$utils",f
 	.module('app')
 	.controller('AccountController', AccountController);
 
-    function AccountController($stateParams, PlantsService) {
+    function AccountController(PlantsService, $state, stateAfterClearAll) {
 	var vm = this;
 
 	angular.extend(vm, {
-	    settings: {
-		enableFriends: true
-	    }
+	    clearAll: clearAll
 	});
 
+	function clearAll(){
+	    PlantsService.clearAll();
+	    $state.go(stateAfterClearAll);
+	}
     }
 })();
 
@@ -64540,15 +64551,24 @@ angular.module("n3-pie-chart",["n3-pie-utils"]).directive("pieChart",["$utils",f
     function PlantsController(PlantsService, plants) {
 	var vm = this;
 
+	angular.extend(vm, {
+	    plants: plants,
+	    removePlant: removePlant,
+	    onItemClick: onItemClick,
+	    isSelectedItem: isSelectedItem
+	});
+
+	function onItemClick(item){
+	    vm.itemSelected = item;
+	}
+
 	function removePlant(plant) {
 	    PlantsService.removePlant(plant);
 	}
 
-	angular.extend(vm, {
-	    plants: plants,
-	    removePlant: removePlant
-	});
-
+	function isSelectedItem(item){
+	    return item === vm.itemSelected;
+	}
 	console.log('>> list init');
     }
 })();
@@ -64562,11 +64582,18 @@ angular.module("n3-pie-chart",["n3-pie-utils"]).directive("pieChart",["$utils",f
 
     function PlantsService(DataStore) {
 	var plants;
+	initialize();
 
 	return {
 	    getAll: getAll,
-	    addPlant: addPlant
+	    addPlant: addPlant,
+	    removePlant: removePlant,
+	    clearAll: clearAll
 	};
+
+	function initialize(){
+	    plants = getAll();
+	}
 
 	function getAll() {
 	    return plants ? plants : DataStore.get();
@@ -64600,6 +64627,16 @@ angular.module("n3-pie-chart",["n3-pie-utils"]).directive("pieChart",["$utils",f
 	    function generateIndex(){
 		return plants.length ? (plants[plants.length - 1].id + 1) : 0;
 	    }
+	}
+
+	function removePlant(plant) {
+	    plants.splice(plants.indexOf(plant), 1);
+	    DataStore.update(plants);
+	}
+
+	function clearAll() {
+	    plants.splice(0, plants.length);
+	    DataStore.clear();
 	}
 
 /*	_updateLocalPlants();
@@ -64715,9 +64752,7 @@ angular.module("n3-pie-chart",["n3-pie-utils"]).directive("pieChart",["$utils",f
 
 
 	function resolvePlants(PlantsService) {
-	    var plants = PlantsService.getAll();
-	    console.log("Resolved", plants);
-	    return plants;
+	    return PlantsService.getAll();
 	}
 
 	function resolvePlantDetails(PlantsService, $stateParams) {
@@ -64743,24 +64778,6 @@ angular.module("n3-pie-chart",["n3-pie-utils"]).directive("pieChart",["$utils",f
 	    plant: plant
 	});
 
-    }
-})();
-
-(function(){
-    'use strict';
-
-    angular
-	.module('app')
-    	.directive('ionAddItem', ionAddItem);
-
-    function ionAddItem(){
-	return {
-	    templateUrl: 'tabs/plants/ion-add-item/ion-add-item.html',
-	    restrict: 'EA',
-	    scope: {
-		targetState: '@'
-	    }
-	}
     }
 })();
 
@@ -64808,11 +64825,29 @@ angular.module("n3-pie-chart",["n3-pie-utils"]).directive("pieChart",["$utils",f
     }
 })();
 
+(function(){
+    'use strict';
+
+    angular
+	.module('app')
+    	.directive('ionAddItem', ionAddItem);
+
+    function ionAddItem(){
+	return {
+	    templateUrl: 'tabs/plants/ion-add-item/ion-add-item.html',
+	    restrict: 'EA',
+	    scope: {
+		targetState: '@'
+	    }
+	}
+    }
+})();
+
 angular.module("app").run(["$templateCache", function($templateCache) {$templateCache.put("tabs/tabs.html","<!--\nCreate tabs with an icon and label, using the tabs-positive style.\nEach tab\'s child <ion-nav-view> directive will have its own\nnavigation history that also transitions its views in and out.\n-->\n<ion-tabs class=\"tabs-icon-top tabs-color-active-positive\">\n\n  <!-- Dashboard Tab -->\n  <ion-tab title=\"Dashboard\" icon-off=\"ion-ios-pulse\" icon-on=\"ion-ios-pulse-strong\" href=\"#/tab/dash\">\n    <ion-nav-view name=\"tab-dash\"></ion-nav-view>\n  </ion-tab>\n\n  <!-- Chats Tab -->\n  <ion-tab title=\"Plants\" icon-off=\"ion-ios-flower-outline\" icon-on=\"ion-ios-flower\" href=\"#/tab/plants\">\n    <ion-nav-view name=\"tab-plants\"></ion-nav-view>\n  </ion-tab>\n\n  <!-- Account Tab -->\n  <ion-tab title=\"Settings\" icon-off=\"ion-ios-gear-outline\" icon-on=\"ion-ios-gear\" href=\"#/tab/account\">\n    <ion-nav-view name=\"tab-account\"></ion-nav-view>\n  </ion-tab>\n\n\n</ion-tabs>\n");
-$templateCache.put("tabs/account/tab-account.html","<ion-view view-title=\"Account\">\n  <ion-content>\n    <ion-list>\n    <ion-toggle  ng-model=\"settings.enableFriends\">\n        Enable Friends\n    </ion-toggle>\n    </ion-list>\n  </ion-content>\n</ion-view>\n");
+$templateCache.put("tabs/account/tab-account.html","<ion-view view-title=\"Account\">\n  <ion-content>\n      <div class=\"item item-button-right\">\n        Remove All Plants\n        <button class=\"button button-positive\"\n                ng-click=\"accountCtrl.clearAll()\">\n          <i class=\"icon ion-trash-a\"></i>\n        </button>\n      </div>\n    </ion-list>\n  </ion-content>\n</ion-view>\n");
 $templateCache.put("tabs/dash/tab-dash.html","<ion-view view-title=\"Wattering Dashboard\">\n  <ion-content class=\"padding\">\n    <h2>Welcome to Ionic</h2>\n    <p>\n    This is the Ionic starter for tabs-based apps. For other starters and ready-made templates, check out the <a href=\"http://market.ionic.io/starters\" target=\"_blank\">Ionic Market</a>.\n    </p>\n    <p>\n      To edit the content of each tab, edit the corresponding template file in <code>www/templates/</code>. This template is <code>www/templates/tab-dash.html</code>\n    </p>\n    <p>\n    If you need help with your app, join the Ionic Community on the <a href=\"http://forum.ionicframework.com\" target=\"_blank\">Ionic Forum</a>. Make sure to <a href=\"http://twitter.com/ionicframework\" target=\"_blank\">follow us</a> on Twitter to get important updates and announcements for Ionic developers.\n    </p>\n    <p>\n      For help sending push notifications, join the <a href=\"https://apps.ionic.io/signup\" target=\"_blank\">Ionic Platform</a> and check out <a href=\"http://docs.ionic.io/docs/push-overview\" target=\"_blank\">Ionic Push</a>. We also have other services available.\n    </p>\n  </ion-content>\n</ion-view>\n");
-$templateCache.put("tabs/plants/tab-plants.html","<ion-view view-title=\"Plants\">\n  <ion-content>\n    <ion-list>\n      <ion-item class=\"item-remove-animate item-avatar item-icon-right\"\n                ng-repeat=\"plant in plantsCtrl.plants track by $index\"\n                type=\"item-text-wrap\"\n                href=\"#/tab/plants/{{plant.id}}\">\n\n        <img ng-src=\"{{plant.image}}\">\n        <h2>{{plant.name}}</h2>\n        <p>Last watering: {{plant.lastWatering | date : \'HH:mm dd MMMM yyyy\'}}</p>\n        <p>Next watering: {{plant.nextWatering | date : \'HH:mm dd MMMM yyyy\'}}</p>\n        <i class=\"icon ion-chevron-right icon-accessory\"></i>\n\n        <ion-option-button class=\"button-assertive\" ng-click=\"plantsCtrl.remove(plant)\">\n          Delete\n        </ion-option-button>\n\n      </ion-item>\n    </ion-list>\n  </ion-content>\n\n  <ion-add-item target-state=\"tab.new-plant\"></ion-add-item>\n</ion-view>\n");
+$templateCache.put("tabs/plants/tab-plants.html","<ion-view view-title=\"Plants\">\n  <ion-content>\n    <ion-list>\n      <ion-item class=\"item-remove-animate item-avatar item-icon-right plant\"\n                ng-repeat=\"plant in plantsCtrl.plants track by $index\"\n                ng-click=\"plantsCtrl.onItemClick()\"\n                type=\"item-text-wrap\"\n                href=\"#/tab/plants/{{plant.id}}\">\n\n        <img ng-src=\"{{plant.image}}\">\n        <h2>{{plant.name}}</h2>\n        <p><span class=\"plant__title\">Last watering:</span> {{plant.lastWatering | date : \'HH:mm dd MMMM yyyy\'}}</p>\n        <p><span class=\"plant__title\">Next watering:</span> {{plant.nextWatering | date : \'HH:mm dd MMMM yyyy\'}}</p>\n        <i class=\"icon ion-chevron-right icon-accessory\"></i>\n\n        <ion-option-button class=\"button-assertive\"\n                           ng-click=\"plantsCtrl.removePlant(plant)\">\n          Delete\n        </ion-option-button>\n\n      </ion-item>\n    </ion-list>\n  </ion-content>\n\n  <ion-add-item target-state=\"tab.new-plant\"></ion-add-item>\n</ion-view>\n");
 $templateCache.put("tabs/plants/details/plant-detail.html","<!--\n  This template loads for the \'tab.friend-detail\' state (app.js)\n  \'friend\' is a $scope variable created in the FriendsCtrl controller (controllers.js)\n  The FriendsCtrl pulls data from the Friends service (service.js)\n  The Friends service returns an array of friend data\n-->\n<ion-view view-title=\"{{plantDetailCtrl.plant.name}}\">\n  <ion-content class=\"padding\">\n    <img ng-src=\"{{plantDetailCtrl.plant.face}}\" style=\"width: 64px; height: 64px\">\n    <p>\n      {{plantDetailCtrl.plant.lastText}}\n    </p>\n  </ion-content>\n</ion-view>\n");
-$templateCache.put("tabs/plants/ion-add-item/ion-add-item.html","<div class=\"floating-button\"\n     ui-sref=\"{{targetState}}\">\n    <span class=\"ion ion-android-add\"></span>\n</div>");
-$templateCache.put("tabs/plants/new-plant/new-plant.html","<ion-view view-title=\"Add New Plant\">\n    <ion-content>\n        <form name=\"newPlantCtrl.form\"\n              required>\n            <div class=\"list\">\n                <label class=\"item item-input item-stacked-label\">\n                    <span class=\"input-label\"\n                          ng-if=\"!newPlantCtrl.isFormInValid()\">Plant Name</span>\n                    <span class=\"input-label text-attention\"\n                          ng-if=\"newPlantCtrl.isFormInValid()\">Enter Plant Name</span>\n                    <input type=\"text\"\n                           required\n                           placeholder=\"Enter plant name\"\n                           ng-model=\"newPlantCtrl.plant.name\">\n                </label>\n\n                <div class=\"watering-chart\">\n                    <pie-chart data=\"newPlantCtrl.data\"\n                               options=\"newPlantCtrl.options\"></pie-chart>\n                </div>\n\n                <div class=\"item range\">\n                    <i class=\"icon ion-ios-flask-outline\"></i>\n                    <input type=\"range\"\n                           name=\"volume\"\n                           ng-model=\"newPlantCtrl.plant.wateringFrequency\"\n                           ng-change=\"newPlantCtrl.onFrequencyChange()\">\n                    <i class=\"icon ion-ios-flask\"></i>\n                </div>\n            </div>\n\n            <div class=\"padding\">\n                <button type=\"submit\"\n                        ng-click=\"newPlantCtrl.onSubmit()\"\n                        class=\"button button-block button-green\">Add Plant</button>\n            </div>\n        </form>\n    </ion-content>\n</ion-view>");}]);
+$templateCache.put("tabs/plants/new-plant/new-plant.html","<ion-view view-title=\"Add New Plant\">\n    <ion-content>\n        <form name=\"newPlantCtrl.form\"\n              required>\n            <div class=\"list\">\n                <label class=\"item item-input item-stacked-label\">\n                    <span class=\"input-label\"\n                          ng-if=\"!newPlantCtrl.isFormInValid()\">Plant Name</span>\n                    <span class=\"input-label text-attention\"\n                          ng-if=\"newPlantCtrl.isFormInValid()\">Enter Plant Name</span>\n                    <input type=\"text\"\n                           required\n                           placeholder=\"Enter plant name\"\n                           ng-model=\"newPlantCtrl.plant.name\">\n                </label>\n\n                <div class=\"watering-chart\">\n                    <pie-chart data=\"newPlantCtrl.data\"\n                               options=\"newPlantCtrl.options\"></pie-chart>\n                </div>\n\n                <div class=\"item range\">\n                    <i class=\"icon ion-ios-flask-outline\"></i>\n                    <input type=\"range\"\n                           name=\"volume\"\n                           ng-model=\"newPlantCtrl.plant.wateringFrequency\"\n                           ng-change=\"newPlantCtrl.onFrequencyChange()\">\n                    <i class=\"icon ion-ios-flask\"></i>\n                </div>\n            </div>\n\n            <div class=\"padding\">\n                <button type=\"submit\"\n                        ng-click=\"newPlantCtrl.onSubmit()\"\n                        class=\"button button-block button-green\">Add Plant</button>\n            </div>\n        </form>\n    </ion-content>\n</ion-view>");
+$templateCache.put("tabs/plants/ion-add-item/ion-add-item.html","<div class=\"floating-button\"\n     ui-sref=\"{{targetState}}\">\n    <span class=\"ion ion-android-add\"></span>\n</div>");}]);
 //# sourceMappingURL=maps/app.js.map

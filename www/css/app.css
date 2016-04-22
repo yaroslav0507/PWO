@@ -9821,4 +9821,13 @@ body {
 .text-attention {
   color: #c0392b; }
 
+.plant__title {
+  width: 100px;
+  display: inline-block;
+  color: #000000;
+  background: #44b39d;
+  background: -webkit-linear-gradient(right, #44b39d 0%, #239b77 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; }
+
 /*# sourceMappingURL=maps/app.css.map */

@@ -5,14 +5,16 @@
 	.module('app')
 	.controller('AccountController', AccountController);
 
-    function AccountController($stateParams, PlantsService) {
+    function AccountController(PlantsService, $state, stateAfterClearAll) {
 	var vm = this;
 
 	angular.extend(vm, {
-	    settings: {
-		enableFriends: true
-	    }
+	    clearAll: clearAll
 	});
 
+	function clearAll(){
+	    PlantsService.clearAll();
+	    $state.go(stateAfterClearAll);
+	}
     }
 })();

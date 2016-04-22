@@ -1,9 +1,12 @@
 <ion-view view-title="Account">
   <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
+      <div class="item item-button-right">
+        Remove All Plants
+        <button class="button button-positive"
+                ng-click="accountCtrl.clearAll()">
+          <i class="icon ion-trash-a"></i>
+        </button>
+      </div>
     </ion-list>
   </ion-content>
 </ion-view>

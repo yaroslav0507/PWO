@@ -49,9 +49,7 @@
 
 
 	function resolvePlants(PlantsService) {
-	    var plants = PlantsService.getAll();
-	    console.log("Resolved", plants);
-	    return plants;
+	    return PlantsService.getAll();
 	}
 
 	function resolvePlantDetails(PlantsService, $stateParams) {

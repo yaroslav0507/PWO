@@ -27,7 +27,11 @@
 		views: {
 		    'tab-account': {
 			templateUrl: 'tabs/account/tab-account.html',
-			controller: 'AccountController'
+			controller: 'AccountController',
+			controllerAs: 'accountCtrl',
+			resolve: {
+			    stateAfterClearAll: function () { return '^.plants' }
+			}
 		    }
 		}
 	    });

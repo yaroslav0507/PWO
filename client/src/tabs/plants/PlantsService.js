@@ -7,11 +7,18 @@
 
     function PlantsService(DataStore) {
 	var plants;
+	initialize();
 
 	return {
 	    getAll: getAll,
-	    addPlant: addPlant
+	    addPlant: addPlant,
+	    removePlant: removePlant,
+	    clearAll: clearAll
 	};
+
+	function initialize(){
+	    plants = getAll();
+	}
 
 	function getAll() {
 	    return plants ? plants : DataStore.get();
@@ -45,6 +52,16 @@
 	    function generateIndex(){
 		return plants.length ? (plants[plants.length - 1].id + 1) : 0;
 	    }
+	}
+
+	function removePlant(plant) {
+	    plants.splice(plants.indexOf(plant), 1);
+	    DataStore.update(plants);
+	}
+
+	function clearAll() {
+	    plants.splice(0, plants.length);
+	    DataStore.clear();
 	}
 
 /*	_updateLocalPlants();
