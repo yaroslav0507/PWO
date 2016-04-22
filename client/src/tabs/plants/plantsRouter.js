@@ -21,7 +21,7 @@
 		}
 	    })
 	    .state('tab.new-plant', {
-		url: '/plants/new',
+		url: '/new',
 		views: {
 		    'tab-plants': {
 			templateUrl: 'tabs/plants/new-plant/new-plant.html',
@@ -49,7 +49,9 @@
 
 
 	function resolvePlants(PlantsService) {
-	    return PlantsService.getAll();
+	    var plants = PlantsService.getAll();
+	    console.log("Resolved", plants);
+	    return plants;
 	}
 
 	function resolvePlantDetails(PlantsService, $stateParams) {

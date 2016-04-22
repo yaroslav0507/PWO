@@ -6,17 +6,59 @@
 	.factory('PlantsService', PlantsService);
 
     function PlantsService(DataStore) {
-	var plants = DataStore.get();
+	var plants;
 
 	return {
 	    getAll: getAll,
-	    removePlant: removePlant,
-	    getPlant: getPlant,
 	    addPlant: addPlant
 	};
 
 	function getAll() {
+	    return plants ? plants : DataStore.get();
+	}
+
+	function addPlant(plant) {
+	    var DEFAULT_PLANT_IMAGE = './img/Graphicloads-Food-Drink-Leaf.ico';
+
+	    if (!plants) {
+		plants = [];
+	    }
+
+	    angular.extend(plant, {
+		id: generateIndex(),
+		image: DEFAULT_PLANT_IMAGE,
+		lastWatering: getLastWatering(),
+		nextWatering: getNextWatering(plant.wateringFrequency)
+	    });
+
+	    plants.push(plant);
+	    DataStore.update(plants);
+
+	    function getLastWatering(){
+		return new Date().getTime();
+	    }
+
+	    function getNextWatering(wateringFrequency){
+		return new Date(new Date().getTime() + wateringFrequency*60*60*1000)
+	    }
+
+	    function generateIndex(){
+		return plants.length ? (plants[plants.length - 1].id + 1) : 0;
+	    }
+	}
+
+/*	_updateLocalPlants();
+
+	function getLocalPlants(){
 	    return plants;
+	}
+
+	function getAll() {
+	    return DataStore.get();
+	}
+
+	function _updateLocalPlants(){
+	    plants = DataStore.get();
 	}
 
 	function removePlant(plant) {
@@ -43,6 +85,7 @@
 		    nextWatering: getNextWatering(plant.wateringFrequency)
 		});
 
+		_updateLocalPlants();
 		plants.push(plant);
 		DataStore.update(plants);
 	    }
@@ -61,7 +104,7 @@
 		return nextIndex;
 	    }
 
-	}
+	}*/
 
     }
 })();

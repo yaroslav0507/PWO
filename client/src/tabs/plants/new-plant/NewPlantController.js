@@ -36,7 +36,7 @@
 
 	    if(vm.form.$valid){
 		PlantsService.addPlant(vm.plant);
-		$state.go(targetState, null, {reload: true});
+		$state.go(targetState);
 	    }
 	}
     }

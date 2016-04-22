@@ -7,21 +7,18 @@
 
     function DataStore(){
 	var STORAGE_NAME = 'PlantAppStore';
-	var store = {};
 
 	return {
 	    update: update,
 	    get: get
 	};
 
-	function update(data){
-	    store = JSON.stringify(data);
-	    window.localStorage.setItem(STORAGE_NAME, store);
+	function update(data) {
+	    window.localStorage.setItem(STORAGE_NAME, JSON.stringify(data));
 	}
 
-	function get(){
-	    var storedData = window.localStorage.getItem(STORAGE_NAME);
-	    return JSON.parse(storedData) || new Array();
+	function get() {
+	    return JSON.parse(window.localStorage.getItem(STORAGE_NAME)) || [];
 	}
     }
 

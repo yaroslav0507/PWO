@@ -17,5 +17,6 @@
 	    removePlant: removePlant
 	});
 
+	console.log('>> list init');
     }
 })();
