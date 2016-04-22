@@ -9798,6 +9798,21 @@ table {
 body {
   font-family: 'Roboto'; }
 
+.pie-chart_invert #arc_0 {
+  fill: white !important; }
+
+.pie-chart_invert #arc_1 {
+  fill: #16a085 !important; }
+
+.pie-chart .legend-title {
+  font-size: 18px !important; }
+
+.pie-chart svg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto; }
+
 .floating-button {
   position: absolute;
   bottom: 75px;

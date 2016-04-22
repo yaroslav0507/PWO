@@ -26,6 +26,7 @@
 
 	function addPlant(plant) {
 	    var DEFAULT_PLANT_IMAGE = './img/Graphicloads-Food-Drink-Leaf.ico';
+	    var hoursToMiliseconds = 60*60*1000;
 
 	    if (!plants) {
 		plants = [];
@@ -46,7 +47,7 @@
 	    }
 
 	    function getNextWatering(wateringFrequency){
-		return new Date(new Date().getTime() + wateringFrequency*60*60*1000)
+		return new Date().getTime() + wateringFrequency + hoursToMiliseconds;
 	    }
 
 	    function generateIndex(){
@@ -63,65 +64,6 @@
 	    plants.splice(0, plants.length);
 	    DataStore.clear();
 	}
-
-/*	_updateLocalPlants();
-
-	function getLocalPlants(){
-	    return plants;
-	}
-
-	function getAll() {
-	    return DataStore.get();
-	}
-
-	function _updateLocalPlants(){
-	    plants = DataStore.get();
-	}
-
-	function removePlant(plant) {
-	    plants.splice(plants.indexOf(plant), 1);
-	}
-
-	function getPlant(plantId) {
-	    for (var i = 0; i < plants.length; i++) {
-		if (plants[i].id === parseInt(plantId)) {
-		    return plants[i];
-		}
-	    }
-	    return null;
-	}
-
-	function addPlant(plant) {
-	    var DEFAULT_PLANT_IMAGE = './img/Graphicloads-Food-Drink-Leaf.ico';
-
-	    if(plant){
-		angular.extend(plant, {
-		    id: generateIndex(),
-		    image: DEFAULT_PLANT_IMAGE,
-		    lastWatering: getLastWatering(),
-		    nextWatering: getNextWatering(plant.wateringFrequency)
-		});
-
-		_updateLocalPlants();
-		plants.push(plant);
-		DataStore.update(plants);
-	    }
-
-	    function getLastWatering(){
-		return new Date().getTime();
-	    }
-
-	    function getNextWatering(wateringFrequency){
-		return new Date(new Date().getTime() + wateringFrequency*60*60*1000)
-	    }
-
-	    function generateIndex(){
-		var lastIndex = plants.length && plants[plants.length - 1].id || 0;
-		var nextIndex = lastIndex + 1;
-		return nextIndex;
-	    }
-
-	}*/
 
     }
 })();

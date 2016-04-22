@@ -1,0 +1,22 @@
+.pie-chart{
+  &_invert{
+    #arc_0{
+      fill: white !important;
+    }
+
+    #arc_1{
+      fill: $brandGreen !important;
+    }
+  }
+
+  .legend-title{
+    font-size: 18px !important;
+  }
+
+  svg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+}

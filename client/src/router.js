@@ -18,7 +18,11 @@
 		    'tab-dash': {
 			templateUrl: 'tabs/dash/tab-dash.html',
 			controller: 'DashboardController',
-			controllerAs: 'dashboardCtrl'
+			controllerAs: 'dashboardCtrl',
+			resolve: {
+			    hottest: resolveHottest
+			},
+			onEnter: resolveHottest
 		    }
 		}
 	    })
@@ -35,6 +39,10 @@
 		    }
 		}
 	    });
+
+	function resolveHottest(PlantsAnalyticsService){
+	    return PlantsAnalyticsService.getHottest()[0];
+	}
 
 	$urlRouterProvider.otherwise('/tab/plants');
     }
