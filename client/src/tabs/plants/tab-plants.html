@@ -1,15 +1,21 @@
 <ion-view view-title="Plants">
   <ion-content>
     <ion-list>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="plant in plantsCtrl.plants" type="item-text-wrap" href="#/tab/plants/{{plant.id}}">
-        <img ng-src="{{plant.face}}">
+      <ion-item class="item-remove-animate item-avatar item-icon-right"
+                ng-repeat="plant in plantsCtrl.plants track by $index"
+                type="item-text-wrap"
+                href="#/tab/plants/{{plant.id}}">
+
+        <img ng-src="{{plant.image}}">
         <h2>{{plant.name}}</h2>
-        <p>{{plant.lastText}}</p>
+        <p>Last watering: {{plant.lastWatering | date : 'HH:mm dd MMMM yyyy'}}</p>
+        <p>Next watering: {{plant.nextWatering | date : 'HH:mm dd MMMM yyyy'}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
         <ion-option-button class="button-assertive" ng-click="plantsCtrl.remove(plant)">
           Delete
         </ion-option-button>
+
       </ion-item>
     </ion-list>
   </ion-content>

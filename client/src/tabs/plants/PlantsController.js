@@ -6,7 +6,7 @@
 	.controller('PlantsController', PlantsController);
 
     function PlantsController(PlantsService, plants) {
-	let vm = this;
+	var vm = this;
 
 	function removePlant(plant) {
 	    PlantsService.removePlant(plant);

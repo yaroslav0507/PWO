@@ -6,7 +6,7 @@
 	.controller('PlantDetailController', PlantDetailController);
 
     function PlantDetailController(plant) {
-	let vm = this;
+	var vm = this;
 
 	angular.extend(vm, {
 	    plant: plant

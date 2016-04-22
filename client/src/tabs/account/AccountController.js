@@ -6,7 +6,7 @@
 	.controller('AccountController', AccountController);
 
     function AccountController($stateParams, PlantsService) {
-	let vm = this;
+	var vm = this;
 
 	angular.extend(vm, {
 	    settings: {

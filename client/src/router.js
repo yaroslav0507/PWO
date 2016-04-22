@@ -32,7 +32,7 @@
 		}
 	    });
 
-	$urlRouterProvider.otherwise('/tab/dash');
+	$urlRouterProvider.otherwise('/tab/plants');
     }
 
 })();

@@ -6,7 +6,7 @@
 	.controller('DashboardController', DashboardController);
 
     function DashboardController(PlantsService) {
-	let vm = this;
+	var vm = this;
 
 	angular.extend(vm, {
 	    remove: function (plant) {

@@ -5,38 +5,14 @@
 	.module('app')
 	.factory('PlantsService', PlantsService);
 
-    function PlantsService() {
-	var plants = [{
-	    id: 0,
-	    name: 'Ben Sparrow',
-	    lastText: 'You on your way?',
-	    face: 'img/ben.png'
-	}, {
-	    id: 1,
-	    name: 'Max Lynx',
-	    lastText: 'Hey, it\'s me',
-	    face: 'img/max.png'
-	}, {
-	    id: 2,
-	    name: 'Adam Bradleyson',
-	    lastText: 'I should buy a boat',
-	    face: 'img/adam.jpg'
-	}, {
-	    id: 3,
-	    name: 'Perry Governor',
-	    lastText: 'Look at my mukluks!',
-	    face: 'img/perry.png'
-	}, {
-	    id: 4,
-	    name: 'Mike Harrington',
-	    lastText: 'This is wicked good ice cream.',
-	    face: 'img/mike.png'
-	}];
+    function PlantsService(DataStore) {
+	var plants = DataStore.get();
 
 	return {
 	    getAll: getAll,
 	    removePlant: removePlant,
-	    getPlant: getPlant
+	    getPlant: getPlant,
+	    addPlant: addPlant
 	};
 
 	function getAll() {
@@ -54,6 +30,37 @@
 		}
 	    }
 	    return null;
+	}
+
+	function addPlant(plant) {
+	    var DEFAULT_PLANT_IMAGE = './img/Graphicloads-Food-Drink-Leaf.ico';
+
+	    if(plant){
+		angular.extend(plant, {
+		    id: generateIndex(),
+		    image: DEFAULT_PLANT_IMAGE,
+		    lastWatering: getLastWatering(),
+		    nextWatering: getNextWatering(plant.wateringFrequency)
+		});
+
+		plants.push(plant);
+		DataStore.update(plants);
+	    }
+
+	    function getLastWatering(){
+		return new Date().getTime();
+	    }
+
+	    function getNextWatering(wateringFrequency){
+		return new Date(new Date().getTime() + wateringFrequency*60*60*1000)
+	    }
+
+	    function generateIndex(){
+		var lastIndex = plants.length && plants[plants.length - 1].id || 0;
+		var nextIndex = lastIndex + 1;
+		return nextIndex;
+	    }
+
 	}
 
     }

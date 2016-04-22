@@ -1,28 +1,39 @@
 <ion-view view-title="Add New Plant">
     <ion-content>
-        <div class="list">
-            <label class="item item-input item-stacked-label">
-                <span class="input-label">Plant Name</span>
-                <input type="text" placeholder="Enter plant name">
-            </label>
+        <form name="newPlantCtrl.form"
+              required>
+            <div class="list">
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label"
+                          ng-if="!newPlantCtrl.isFormInValid()">Plant Name</span>
+                    <span class="input-label text-attention"
+                          ng-if="newPlantCtrl.isFormInValid()">Enter Plant Name</span>
+                    <input type="text"
+                           required
+                           placeholder="Enter plant name"
+                           ng-model="newPlantCtrl.plant.name">
+                </label>
 
-            <div class="watering-chart">
-                <pie-chart data="newPlantCtrl.data"
-                           options="newPlantCtrl.options"></pie-chart>
+                <div class="watering-chart">
+                    <pie-chart data="newPlantCtrl.data"
+                               options="newPlantCtrl.options"></pie-chart>
+                </div>
+
+                <div class="item range">
+                    <i class="icon ion-ios-flask-outline"></i>
+                    <input type="range"
+                           name="volume"
+                           ng-model="newPlantCtrl.plant.wateringFrequency"
+                           ng-change="newPlantCtrl.onFrequencyChange()">
+                    <i class="icon ion-ios-flask"></i>
+                </div>
             </div>
 
-            <div class="item range">
-                <i class="icon ion-ios-flask-outline"></i>
-                <input type="range"
-                       name="volume"
-                       ng-model="newPlantCtrl.wateringFrequency"
-                       ng-change="newPlantCtrl.onFrequencyChange()">
-                <i class="icon ion-ios-flask"></i>
+            <div class="padding">
+                <button type="submit"
+                        ng-click="newPlantCtrl.onSubmit()"
+                        class="button button-block button-green">Add Plant</button>
             </div>
-        </div>
-
-        <div class="padding">
-            <button class="button button-block button-green">Add Plant</button>
-        </div>
+        </form>
     </ion-content>
 </ion-view>
