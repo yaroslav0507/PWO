@@ -21,8 +21,7 @@
 			controllerAs: 'dashboardCtrl',
 			resolve: {
 			    hottest: resolveHottest
-			},
-			onEnter: resolveHottest
+			}
 		    }
 		}
 	    })

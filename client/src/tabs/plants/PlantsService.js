@@ -26,7 +26,7 @@
 
 	function addPlant(plant) {
 	    var DEFAULT_PLANT_IMAGE = './img/Graphicloads-Food-Drink-Leaf.ico';
-	    var hoursToMiliseconds = 60*60*1000;
+	    var hoursToMiliseconds = 3600000;
 
 	    if (!plants) {
 		plants = [];
@@ -47,7 +47,7 @@
 	    }
 
 	    function getNextWatering(wateringFrequency){
-		return new Date().getTime() + wateringFrequency + hoursToMiliseconds;
+		return new Date().getTime() + wateringFrequency * hoursToMiliseconds;
 	    }
 
 	    function generateIndex(){
