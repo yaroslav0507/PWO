@@ -3,7 +3,8 @@
   "version": "1.1.1",
   "description": "An Ionic project",
   "scripts": {
-    "start": "gulp serve"
+    "start": "gulp serve",
+    "postinstall": "bower cache clean && bower install && gulp ionicWebClientInit && ionic io init"
   },
   "dependencies": {
     "dotenv": "^1.2.0"
@@ -44,7 +45,14 @@
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
-    "ionic-plugin-keyboard"
+    "ionic-plugin-keyboard",
+    {
+      "variables": {
+        "SENDER_ID": "api-project-229913235025"
+      },
+      "locator": "phonegap-plugin-push",
+      "id": "phonegap-plugin-push"
+    }
   ],
   "cordovaPlatforms": [
     "android"

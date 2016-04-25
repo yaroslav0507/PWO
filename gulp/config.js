@@ -3,6 +3,10 @@
 module.exports = function() {
 
    var vendors = {
+       ionicWebClient: {
+           src: './client/vendors/ionic-platform-web-client/dist/ionic.io.bundle.min.js',
+           dest: './www/lib/ionic-platform-web-client/dist/'
+       },
        scripts: [
            './client/vendors/ionic/js/ionic.bundle.js',
            './client/vendors/d3/d3.min.js',
@@ -23,6 +27,7 @@ module.exports = function() {
      paths: {
          src: {
              vendors: {
+                 ionicWebClient: vendors.ionicWebClient,
                  scripts: vendors.scripts,
                  styles: vendors.styles
              },

@@ -3,6 +3,7 @@
   "private": "true",
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.2.4",
-    "pie-chart": "^1.0.0"
+    "pie-chart": "^1.0.0",
+    "ionic-platform-web-client": "^0.7.1"
   }
 }
