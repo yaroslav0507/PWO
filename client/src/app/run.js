@@ -3,7 +3,7 @@
 
     angular
 	.module('app')
-	.run(function ($ionicPlatform) {
+	.run(function ($ionicPlatform, $rootScope, $cordovaVibration) {
 	    $ionicPlatform.ready(function () {
 		// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 		// for form inputs)
@@ -16,6 +16,11 @@
 		    // org.apache.cordova.statusbar required
 		    StatusBar.styleDefault();
 		}
+
+		$rootScope.$on('$cordovaLocalNotification:trigger', function(event, notification, state) {
+		    $cordovaVibration.vibrate(1000);
+		    console.log("Local notification was triggered");
+		})
 	    });
 	})
 })();

@@ -13,12 +13,12 @@
 
 	function scheduleSingleNotification() {
 	    _ionicPlatformReady(function () {
+		var now = Date.now();
 		$cordovaLocalNotification.schedule({
 		    id: 1,
-		    text: 'Instant Notification',
-		    title: 'Instant'
-		}).then(function () {
-		    alert("Instant Notification set");
+		    text: 'Mock notification',
+		    title: 'Notification happened',
+		    at: now + 10000
 		});
 	    });
 	}

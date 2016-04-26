@@ -64466,6 +64466,33 @@ e?o.resolve(e):o.reject(e)},r),o.promise},getAllIds:function(r){var o=e.defer();
 
 
 
+(function () {
+    'use strict';
+
+    angular
+	.module('app')
+	.run(function ($ionicPlatform, $rootScope, $cordovaVibration) {
+	    $ionicPlatform.ready(function () {
+		// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+		// for form inputs)
+		if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+		    cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+		    cordova.plugins.Keyboard.disableScroll(true);
+		}
+
+		if (window.StatusBar) {
+		    // org.apache.cordova.statusbar required
+		    StatusBar.styleDefault();
+		}
+
+		$rootScope.$on('$cordovaLocalNotification:trigger', function(event, notification, state) {
+		    $cordovaVibration.vibrate(1000);
+		    console.log("Local notification was triggered");
+		})
+	    });
+	})
+})();
+
 (function(){
     'use strict';
 
@@ -64524,12 +64551,12 @@ e?o.resolve(e):o.reject(e)},r),o.promise},getAllIds:function(r){var o=e.defer();
 
 	function scheduleSingleNotification() {
 	    _ionicPlatformReady(function () {
+		var now = Date.now();
 		$cordovaLocalNotification.schedule({
 		    id: 1,
-		    text: 'Instant Notification',
-		    title: 'Instant'
-		}).then(function () {
-		    alert("Instant Notification set");
+		    text: 'Mock notification',
+		    title: 'Notification happened',
+		    at: now + 10000
 		});
 	    });
 	}
@@ -64554,28 +64581,6 @@ e?o.resolve(e):o.reject(e)},r),o.promise},getAllIds:function(r){var o=e.defer();
     }
 
 
-})();
-
-(function () {
-    'use strict';
-
-    angular
-	.module('app')
-	.run(function ($ionicPlatform) {
-	    $ionicPlatform.ready(function () {
-		// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-		// for form inputs)
-		if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-		    cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-		    cordova.plugins.Keyboard.disableScroll(true);
-		}
-
-		if (window.StatusBar) {
-		    // org.apache.cordova.statusbar required
-		    StatusBar.styleDefault();
-		}
-	    });
-	})
 })();
 
 (function () {
@@ -64852,6 +64857,23 @@ e?o.resolve(e):o.reject(e)},r),o.promise},getAllIds:function(r){var o=e.defer();
 
 
 
+(function () {
+    'use strict';
+
+    angular
+	.module('app')
+	.controller('PlantDetailController', PlantDetailController);
+
+    function PlantDetailController(plant) {
+	var vm = this;
+
+	angular.extend(vm, {
+	    plant: plant
+	});
+
+    }
+})();
+
 (function(){
     'use strict';
 
@@ -64867,23 +64889,6 @@ e?o.resolve(e):o.reject(e)},r),o.promise},getAllIds:function(r){var o=e.defer();
 		targetState: '@'
 	    }
 	}
-    }
-})();
-
-(function () {
-    'use strict';
-
-    angular
-	.module('app')
-	.controller('PlantDetailController', PlantDetailController);
-
-    function PlantDetailController(plant) {
-	var vm = this;
-
-	angular.extend(vm, {
-	    plant: plant
-	});
-
     }
 })();
 
@@ -64932,10 +64937,10 @@ e?o.resolve(e):o.reject(e)},r),o.promise},getAllIds:function(r){var o=e.defer();
 })();
 
 angular.module("app").run(["$templateCache", function($templateCache) {$templateCache.put("tabs/tabs.html","<!--\nCreate tabs with an icon and label, using the tabs-positive style.\nEach tab\'s child <ion-nav-view> directive will have its own\nnavigation history that also transitions its views in and out.\n-->\n<ion-tabs class=\"tabs-icon-top tabs-color-active-positive\">\n\n  <!-- Dashboard Tab -->\n  <ion-tab title=\"Dashboard\" icon-off=\"ion-ios-pulse\" icon-on=\"ion-ios-pulse-strong\" href=\"#/tab/dash\">\n    <ion-nav-view name=\"tab-dash\"></ion-nav-view>\n  </ion-tab>\n\n  <!-- Chats Tab -->\n  <ion-tab title=\"Plants\" icon-off=\"ion-ios-flower-outline\" icon-on=\"ion-ios-flower\" href=\"#/tab/plants\">\n    <ion-nav-view name=\"tab-plants\"></ion-nav-view>\n  </ion-tab>\n\n  <!-- Account Tab -->\n  <ion-tab title=\"Settings\" icon-off=\"ion-ios-gear-outline\" icon-on=\"ion-ios-gear\" href=\"#/tab/account\">\n    <ion-nav-view name=\"tab-account\"></ion-nav-view>\n  </ion-tab>\n\n\n</ion-tabs>\n");
-$templateCache.put("tabs/account/tab-account.html","<ion-view view-title=\"Account\">\n  <ion-content>\n      <div class=\"item item-button-right\">\n        Remove All Plants\n        <button class=\"button button-positive\"\n                ng-click=\"accountCtrl.clearAll()\">\n          <i class=\"icon ion-trash-a\"></i>\n        </button>\n      </div>\n\n      <div class=\"item item-button-right\">\n        Push notification\n        <button class=\"button button-positive\"\n                ng-click=\"accountCtrl.pushNotification()\">\n          <i class=\"icon ion-ios-cloud-upload\"></i>\n        </button>\n      </div>\n    </ion-list>\n  </ion-content>\n</ion-view>\n");
+$templateCache.put("tabs/account/tab-account.html","<ion-view view-title=\"Account\">\n  <ion-content>\n      <div class=\"item item-button-right\">\n        Remove All Plants\n        <button class=\"button button-positive\"\n                ng-click=\"accountCtrl.clearAll()\">\n          <i class=\"icon ion-trash-a\"></i>\n        </button>\n      </div>\n\n      <div class=\"item item-button-right\">\n        Create mock notification in 10sec.\n        <button class=\"button button-positive\"\n                ng-click=\"accountCtrl.pushNotification()\">\n          <i class=\"icon ion-ios-cloud-upload\"></i>\n        </button>\n      </div>\n    </ion-list>\n  </ion-content>\n</ion-view>\n");
 $templateCache.put("tabs/dash/tab-dash.html","<ion-view view-title=\"Wattering Dashboard\" cache-view=\"false\">\n  <ion-content class=\"padding\">\n    <div class=\"dashboard-chart\">\n      <pie-chart class=\"pie-chart pie-chart_invert\"\n                 data=\"dashboardCtrl.chartData\"\n                 options=\"dashboardCtrl.options\"></pie-chart>\n    </div>\n  </ion-content>\n</ion-view>\n");
 $templateCache.put("tabs/plants/tab-plants.html","<ion-view view-title=\"Plants\">\n  <ion-content>\n    <ion-list>\n      <ion-item class=\"item-remove-animate item-avatar item-icon-right plant\"\n                ng-repeat=\"plant in plantsCtrl.plants track by $index\"\n                ng-click=\"plantsCtrl.onItemClick()\"\n                type=\"item-text-wrap\"\n                href=\"#/tab/plants/{{plant.id}}\">\n\n        <img ng-src=\"{{plant.image}}\">\n        <h2>{{plant.name}}</h2>\n        <p><span class=\"plant__title\">Last watering:</span> {{plant.lastWatering | date : \'HH:mm dd MMMM yyyy\'}}</p>\n        <p><span class=\"plant__title\">Next watering:</span> {{plant.nextWatering | date : \'HH:mm dd MMMM yyyy\'}}</p>\n        <i class=\"icon ion-chevron-right icon-accessory\"></i>\n\n        <ion-option-button class=\"button-assertive\"\n                           ng-click=\"plantsCtrl.removePlant(plant)\">\n          Delete\n        </ion-option-button>\n\n      </ion-item>\n    </ion-list>\n  </ion-content>\n\n  <ion-add-item target-state=\"tab.new-plant\"></ion-add-item>\n</ion-view>\n");
-$templateCache.put("tabs/plants/ion-add-item/ion-add-item.html","<div class=\"floating-button\"\n     ui-sref=\"{{targetState}}\">\n    <span class=\"ion ion-android-add\"></span>\n</div>");
 $templateCache.put("tabs/plants/details/plant-detail.html","<!--\n  This template loads for the \'tab.friend-detail\' state (app.js)\n  \'friend\' is a $scope variable created in the FriendsCtrl controller (controllers.js)\n  The FriendsCtrl pulls data from the Friends service (service.js)\n  The Friends service returns an array of friend data\n-->\n<ion-view view-title=\"{{plantDetailCtrl.plant.name}}\">\n  <ion-content class=\"padding\">\n    <img ng-src=\"{{plantDetailCtrl.plant.face}}\" style=\"width: 64px; height: 64px\">\n    <p>\n      {{plantDetailCtrl.plant.lastText}}\n    </p>\n  </ion-content>\n</ion-view>\n");
+$templateCache.put("tabs/plants/ion-add-item/ion-add-item.html","<div class=\"floating-button\"\n     ui-sref=\"{{targetState}}\">\n    <span class=\"ion ion-android-add\"></span>\n</div>");
 $templateCache.put("tabs/plants/new-plant/new-plant.html","<ion-view view-title=\"Add New Plant\">\n    <ion-content>\n        <form name=\"newPlantCtrl.form\"\n              required>\n            <div class=\"list\">\n                <label class=\"item item-input item-stacked-label\">\n                    <span class=\"input-label\"\n                          ng-if=\"!newPlantCtrl.isFormInValid()\">Plant Name</span>\n                    <span class=\"input-label text-attention\"\n                          ng-if=\"newPlantCtrl.isFormInValid()\">Enter Plant Name</span>\n                    <input type=\"text\"\n                           required\n                           placeholder=\"Enter plant name\"\n                           ng-model=\"newPlantCtrl.plant.name\">\n                </label>\n\n                <div class=\"watering-chart\">\n                    <pie-chart data=\"newPlantCtrl.data\"\n                               options=\"newPlantCtrl.options\"></pie-chart>\n                </div>\n\n                <div class=\"item range\">\n                    <i class=\"icon ion-ios-flask-outline\"></i>\n                    <input type=\"range\"\n                           name=\"volume\"\n                           ng-model=\"newPlantCtrl.plant.wateringFrequency\"\n                           ng-change=\"newPlantCtrl.onFrequencyChange()\">\n                    <i class=\"icon ion-ios-flask\"></i>\n                </div>\n            </div>\n\n            <div class=\"padding\">\n                <button type=\"submit\"\n                        ng-click=\"newPlantCtrl.onSubmit()\"\n                        class=\"button button-block button-green\">Add Plant</button>\n            </div>\n        </form>\n    </ion-content>\n</ion-view>");}]);
 //# sourceMappingURL=app.js.map
