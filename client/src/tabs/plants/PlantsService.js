@@ -38,7 +38,6 @@
 		lastWatering: getLastWatering(),
 		nextWatering: getNextWatering(plant.wateringFrequency)
 	    });
-	    getTimeLast();
 	    schedulePlantWateringNotification(plant);
 
 	    plants.push(plant);
@@ -50,10 +49,6 @@
 
 	    function getNextWatering(wateringFrequency){
 		return new Date().getTime() + wateringFrequency * hoursToMiliseconds;
-	    }
-
-	    function getTimeLast(){
-		plant.timeLast = (plant.nextWatering - plant.lastWatering);
 	    }
 
 	    function generateIndex(){

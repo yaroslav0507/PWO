@@ -40,7 +40,7 @@
 	    });
 
 	function resolveHottest(PlantsAnalyticsService){
-	    return PlantsAnalyticsService.getHottest()[0];
+	    return PlantsAnalyticsService.getHottest();
 	}
 
 	$urlRouterProvider.otherwise('/tab/plants');
