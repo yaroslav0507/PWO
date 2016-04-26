@@ -4,6 +4,6 @@
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.2.4",
     "pie-chart": "^1.0.0",
-    "ionic-platform-web-client": "^0.7.1"
+    "ngCordova": "^0.1.26-alpha"
   }
 }

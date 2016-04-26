@@ -5,23 +5,23 @@
 	.module('app')
 	.controller('DashboardController', DashboardController);
 
-    function DashboardController(PlantsService, PlantsAnalyticsService) {
+    function DashboardController(PlantsService, PlantsAnalyticsService, DEFAULT_CHART_OPTIONS) {
 	var vm = this;
 	var hoursToMiliseconds = 60*60*1000;
 
 	angular.extend(vm, {
-	    options: {thickness: 10, mode: "gauge", total: 100},
+	    options: DEFAULT_CHART_OPTIONS,
 	    remove: remove,
-	    hottest: PlantsAnalyticsService.getHottest()[0]
+	    hottest: PlantsAnalyticsService.getHottest()
 	});
 
-	setChartData();
+	initialize();
 
 	function remove (plant) {
 	    PlantsService.removePlant(plant);
 	}
 
-	function setChartData(){
+	function initialize(){
 	    if(vm.hottest){
 		var chartLabel = "Watter " + vm.hottest.name + " in";
 		var timeLast = Math.ceil(vm.hottest.timeLast / hoursToMiliseconds);
@@ -33,7 +33,6 @@
 		    {label: "You have no plants", value: 0, color: "#16a085"}
 		];
 	    }
-
 	}
 
     }

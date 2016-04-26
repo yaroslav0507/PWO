@@ -5,15 +5,15 @@
 	.module('app')
 	.controller('NewPlantController', NewPlantController);
 
-    function NewPlantController(PlantsService, $state, targetState) {
-	var vm = this;
+    function NewPlantController(PlantsService, $state, targetState, DEFAULT_CHART_OPTIONS) {
 	var DEFAULT_WATERING_FREQUENCY = 8;
+	var vm = this;
 
 	angular.extend(vm, {
 	    plant: {
 		wateringFrequency: DEFAULT_WATERING_FREQUENCY
 	    },
-	    options: {thickness: 10, mode: "gauge", total: 100},
+	    options: DEFAULT_CHART_OPTIONS,
 	    onFrequencyChange: setChartData,
 	    isFormInValid: isFormInValid,
 	    onSubmit: onSubmit

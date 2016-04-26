@@ -4,7 +4,8 @@
     angular
 	.module('app', [
 	    'ionic',
-	    'n3-pie-chart'
+	    'n3-pie-chart',
+	    'ngCordova'
 	]);
 
 })();

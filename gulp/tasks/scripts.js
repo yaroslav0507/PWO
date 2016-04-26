@@ -20,7 +20,7 @@ gulp.task('scripts', function () {
   return seq([vendors, app, views])
     .pipe(sourcemaps.init())
     .pipe(concat('app.js'))
-    .pipe(sourcemaps.write('maps', {sourceRoot: '/client'}))
+    .pipe(sourcemaps.write('./', {sourceRoot: '/client'}))
     .pipe(gulp.dest('www/js/'))
     .on('end', browserSync.reload);
 });

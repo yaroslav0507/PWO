@@ -5,7 +5,7 @@
 	.module('app')
 	.factory('PlantsService', PlantsService);
 
-    function PlantsService(DataStore) {
+    function PlantsService(DataStore, NotificationService) {
 	var plants;
 	initialize();
 
@@ -38,6 +38,8 @@
 		lastWatering: getLastWatering(),
 		nextWatering: getNextWatering(plant.wateringFrequency)
 	    });
+	    getTimeLast();
+	    schedulePlantWateringNotification(plant);
 
 	    plants.push(plant);
 	    DataStore.update(plants);
@@ -48,6 +50,10 @@
 
 	    function getNextWatering(wateringFrequency){
 		return new Date().getTime() + wateringFrequency * hoursToMiliseconds;
+	    }
+
+	    function getTimeLast(){
+		plant.timeLast = (plant.nextWatering - plant.lastWatering);
 	    }
 
 	    function generateIndex(){
@@ -63,6 +69,18 @@
 	function clearAll() {
 	    plants.splice(0, plants.length);
 	    DataStore.clear();
+	}
+
+	function schedulePlantWateringNotification(plant){
+	    var notificationText = plant.name + ' is need to be watered';
+	    var notificationConfig = {
+		id: plant.id,
+		title: 'Watter your plant',
+		text: notificationText,
+		at: plant.nextWatering
+	    };
+
+	    NotificationService.scheduleDelayedNotification(notificationConfig);
 	}
 
     }

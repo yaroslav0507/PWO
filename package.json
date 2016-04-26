@@ -4,7 +4,7 @@
   "description": "An Ionic project",
   "scripts": {
     "start": "gulp serve",
-    "postinstall": "bower cache clean && bower install && gulp ionicWebClientInit && ionic io init"
+    "postinstall": "bower cache clean && bower install"
   },
   "dependencies": {
     "dotenv": "^1.2.0"
