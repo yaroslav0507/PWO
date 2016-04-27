@@ -1,0 +1,23 @@
+.plant-detail{
+  padding: 25px 10px 10px;
+  text-align: center;
+  
+  &__wrapper{
+    display: inline-block;
+    margin-bottom: 25px;
+  }
+
+  &__image{
+    width: 220px;
+    margin-bottom: 25px;
+  }
+
+  &__title{
+    width: 120px;
+    color: $brandGreen;
+  }
+
+  &__watering-frequency{
+    padding-top: 20px;
+  }
+}

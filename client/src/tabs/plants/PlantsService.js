@@ -13,7 +13,8 @@
 	    getAll: getAll,
 	    addPlant: addPlant,
 	    removePlant: removePlant,
-	    clearAll: clearAll
+	    clearAll: clearAll,
+	    getPlant: getPlant
 	};
 
 	function initialize(){
@@ -22,6 +23,15 @@
 
 	function getAll() {
 	    return plants ? plants : DataStore.get();
+	}
+
+	function getPlant(plantId) {
+	    for (var i = 0; i < plants.length; i++) {
+		if (plants[i].id === parseInt(plantId)) {
+		    return plants[i];
+		}
+	    }
+	    return null;
 	}
 
 	function addPlant(plant) {

@@ -64726,7 +64726,8 @@ e?o.resolve(e):o.reject(e)},r),o.promise},getAllIds:function(r){var o=e.defer();
 	    getAll: getAll,
 	    addPlant: addPlant,
 	    removePlant: removePlant,
-	    clearAll: clearAll
+	    clearAll: clearAll,
+	    getPlant: getPlant
 	};
 
 	function initialize(){
@@ -64735,6 +64736,15 @@ e?o.resolve(e):o.reject(e)},r),o.promise},getAllIds:function(r){var o=e.defer();
 
 	function getAll() {
 	    return plants ? plants : DataStore.get();
+	}
+
+	function getPlant(plantId) {
+	    for (var i = 0; i < plants.length; i++) {
+		if (plants[i].id === parseInt(plantId)) {
+		    return plants[i];
+		}
+	    }
+	    return null;
 	}
 
 	function addPlant(plant) {
@@ -64940,7 +64950,7 @@ angular.module("app").run(["$templateCache", function($templateCache) {$template
 $templateCache.put("tabs/account/tab-account.html","<ion-view view-title=\"Account\">\n  <ion-content>\n      <div class=\"item item-button-right\">\n        Remove All Plants\n        <button class=\"button button-positive\"\n                ng-click=\"accountCtrl.clearAll()\">\n          <i class=\"icon ion-trash-a\"></i>\n        </button>\n      </div>\n\n      <div class=\"item item-button-right\">\n        Create mock notification in 10sec.\n        <button class=\"button button-positive\"\n                ng-click=\"accountCtrl.pushNotification()\">\n          <i class=\"icon ion-ios-cloud-upload\"></i>\n        </button>\n      </div>\n    </ion-list>\n  </ion-content>\n</ion-view>\n");
 $templateCache.put("tabs/dash/tab-dash.html","<ion-view view-title=\"Wattering Dashboard\" cache-view=\"false\">\n  <ion-content class=\"padding\">\n    <div class=\"dashboard-chart\">\n      <pie-chart class=\"pie-chart pie-chart_invert\"\n                 data=\"dashboardCtrl.chartData\"\n                 options=\"dashboardCtrl.options\"></pie-chart>\n    </div>\n  </ion-content>\n</ion-view>\n");
 $templateCache.put("tabs/plants/tab-plants.html","<ion-view view-title=\"Plants\">\n  <ion-content>\n    <ion-list>\n      <ion-item class=\"item-remove-animate item-avatar item-icon-right plant\"\n                ng-repeat=\"plant in plantsCtrl.plants track by $index\"\n                ng-click=\"plantsCtrl.onItemClick()\"\n                type=\"item-text-wrap\"\n                href=\"#/tab/plants/{{plant.id}}\">\n\n        <img ng-src=\"{{plant.image}}\">\n        <h2>{{plant.name}}</h2>\n        <p><span class=\"plant__title\">Last watering:</span> {{plant.lastWatering | date : \'HH:mm dd MMMM yyyy\'}}</p>\n        <p><span class=\"plant__title\">Next watering:</span> {{plant.nextWatering | date : \'HH:mm dd MMMM yyyy\'}}</p>\n        <i class=\"icon ion-chevron-right icon-accessory\"></i>\n\n        <ion-option-button class=\"button-assertive\"\n                           ng-click=\"plantsCtrl.removePlant(plant)\">\n          Delete\n        </ion-option-button>\n\n      </ion-item>\n    </ion-list>\n  </ion-content>\n\n  <ion-add-item target-state=\"tab.new-plant\"></ion-add-item>\n</ion-view>\n");
-$templateCache.put("tabs/plants/details/plant-detail.html","<!--\n  This template loads for the \'tab.friend-detail\' state (app.js)\n  \'friend\' is a $scope variable created in the FriendsCtrl controller (controllers.js)\n  The FriendsCtrl pulls data from the Friends service (service.js)\n  The Friends service returns an array of friend data\n-->\n<ion-view view-title=\"{{plantDetailCtrl.plant.name}}\">\n  <ion-content class=\"padding\">\n    <img ng-src=\"{{plantDetailCtrl.plant.face}}\" style=\"width: 64px; height: 64px\">\n    <p>\n      {{plantDetailCtrl.plant.lastText}}\n    </p>\n  </ion-content>\n</ion-view>\n");
+$templateCache.put("tabs/plants/details/plant-detail.html","<ion-view view-title=\"{{plantDetailCtrl.plant.name}}\">\n    <ion-content class=\"plant-detail\">\n        <div class=\"plant-detail__wrapper\">\n            <img ng-src=\"{{plantDetailCtrl.plant.image}}\" class=\"plant-detail__image\">\n            <p><span class=\"plant-detail__title\">Last watering:</span> {{plantDetailCtrl.plant.lastWatering | date :\n                \'HH:mm dd MMMM yyyy\'}}</p>\n            <p><span class=\"plant-detail__title\">Next watering:</span> {{plantDetailCtrl.plant.nextWatering | date :\n                \'HH:mm dd MMMM yyyy\'}}</p>\n\n            <div class=\"plant-detail__watering-frequency\">\n                {{plantDetailCtrl.plant.name}} is need to be watered every {{plantDetailCtrl.plant.wateringFrequency}} hours\n            </div>\n        </div>\n\n        <div class=\"bar bar-balanced\">\n            <h1 class=\"title\">Watter {{plantDetailCtrl.plant.name}}</h1>\n        </div>\n    </ion-content>\n</ion-view>\n");
 $templateCache.put("tabs/plants/ion-add-item/ion-add-item.html","<div class=\"floating-button\"\n     ui-sref=\"{{targetState}}\">\n    <span class=\"ion ion-android-add\"></span>\n</div>");
 $templateCache.put("tabs/plants/new-plant/new-plant.html","<ion-view view-title=\"Add New Plant\">\n    <ion-content>\n        <form name=\"newPlantCtrl.form\"\n              required>\n            <div class=\"list\">\n                <label class=\"item item-input item-stacked-label\">\n                    <span class=\"input-label\"\n                          ng-if=\"!newPlantCtrl.isFormInValid()\">Plant Name</span>\n                    <span class=\"input-label text-attention\"\n                          ng-if=\"newPlantCtrl.isFormInValid()\">Enter Plant Name</span>\n                    <input type=\"text\"\n                           required\n                           placeholder=\"Enter plant name\"\n                           ng-model=\"newPlantCtrl.plant.name\">\n                </label>\n\n                <div class=\"watering-chart\">\n                    <pie-chart data=\"newPlantCtrl.data\"\n                               options=\"newPlantCtrl.options\"></pie-chart>\n                </div>\n\n                <div class=\"item range\">\n                    <i class=\"icon ion-ios-flask-outline\"></i>\n                    <input type=\"range\"\n                           name=\"volume\"\n                           ng-model=\"newPlantCtrl.plant.wateringFrequency\"\n                           ng-change=\"newPlantCtrl.onFrequencyChange()\">\n                    <i class=\"icon ion-ios-flask\"></i>\n                </div>\n            </div>\n\n            <div class=\"padding\">\n                <button type=\"submit\"\n                        ng-click=\"newPlantCtrl.onSubmit()\"\n                        class=\"button button-block button-green\">Add Plant</button>\n            </div>\n        </form>\n    </ion-content>\n</ion-view>");}]);
 //# sourceMappingURL=app.js.map

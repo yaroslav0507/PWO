@@ -9813,6 +9813,21 @@ body {
   right: 0;
   margin: auto; }
 
+.plant-detail {
+  padding: 25px 10px 10px;
+  text-align: center; }
+  .plant-detail__wrapper {
+    display: inline-block;
+    margin-bottom: 25px; }
+  .plant-detail__image {
+    width: 220px;
+    margin-bottom: 25px; }
+  .plant-detail__title {
+    width: 120px;
+    color: #16a085; }
+  .plant-detail__watering-frequency {
+    padding-top: 20px; }
+
 .floating-button {
   position: absolute;
   bottom: 75px;

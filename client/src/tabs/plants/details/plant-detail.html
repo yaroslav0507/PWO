@@ -1,14 +1,19 @@
-<!--
-  This template loads for the 'tab.friend-detail' state (app.js)
-  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
-  The FriendsCtrl pulls data from the Friends service (service.js)
-  The Friends service returns an array of friend data
--->
 <ion-view view-title="{{plantDetailCtrl.plant.name}}">
-  <ion-content class="padding">
-    <img ng-src="{{plantDetailCtrl.plant.face}}" style="width: 64px; height: 64px">
-    <p>
-      {{plantDetailCtrl.plant.lastText}}
-    </p>
-  </ion-content>
+    <ion-content class="plant-detail">
+        <div class="plant-detail__wrapper">
+            <img ng-src="{{plantDetailCtrl.plant.image}}" class="plant-detail__image">
+            <p><span class="plant-detail__title">Last watering:</span> {{plantDetailCtrl.plant.lastWatering | date :
+                'HH:mm dd MMMM yyyy'}}</p>
+            <p><span class="plant-detail__title">Next watering:</span> {{plantDetailCtrl.plant.nextWatering | date :
+                'HH:mm dd MMMM yyyy'}}</p>
+
+            <div class="plant-detail__watering-frequency">
+                {{plantDetailCtrl.plant.name}} is need to be watered every {{plantDetailCtrl.plant.wateringFrequency}} hours
+            </div>
+        </div>
+
+        <div class="bar bar-balanced">
+            <h1 class="title">Watter {{plantDetailCtrl.plant.name}}</h1>
+        </div>
+    </ion-content>
 </ion-view>
