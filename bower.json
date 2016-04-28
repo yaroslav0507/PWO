@@ -4,6 +4,8 @@
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.2.4",
     "pie-chart": "^1.0.0",
-    "ngCordova": "^0.1.26-alpha"
+    "ngCordova": "^0.1.26-alpha",
+    "angular-mocks": "^1.5.5",
+    "jquery": "^2.2.3"
   }
 }
