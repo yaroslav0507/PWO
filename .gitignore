@@ -6,3 +6,5 @@ node_modules/
 platforms/
 plugins/
 /client/vendors
+/resources/ios
+/resources/android

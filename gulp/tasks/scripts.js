@@ -17,8 +17,7 @@ gulp.task('scripts', function () {
 
     const vendors = gulp.src(config.paths.src.vendors.scripts, {base: 'vendors'});
 
-    const app = gulp.src(config.paths.src.components, {base: 'src'})
-
+    const app = gulp.src(config.paths.src.components, {base: 'src'});
     const views = gulp.src([
 	    './client/src/**/*.html'
 	])
@@ -36,4 +35,3 @@ gulp.task('scripts', function () {
 	.pipe(gulp.dest('www/js/'))
 	.on('end', browserSync.reload);
 });
-

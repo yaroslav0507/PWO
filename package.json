@@ -5,7 +5,7 @@
   "scripts": {
     "start": "gulp serve",
     "preinstall": "bower cache clean && bower install",
-    "postinstall": "gulp build && ionic state restore"
+    "postinstall": "gulp build && ionic state restore && ionic resources"
   },
   "dependencies": {
     "dotenv": "^1.2.0"
