@@ -1,17 +1,17 @@
 'use strict';
 var runSequence = require('run-sequence');
 
-gulp.task('dev', function(callback){
-    runSequence('scripts', 'styles', 'html',  'fonts', 'images', 'watch', callback)
+gulp.task('build', function(callback){
+    runSequence('scripts', 'styles', 'html', 'fonts', 'images', callback)
 });
 
-gulp.task('serve', ['dev'], function(){
+gulp.task('serve', ['build', 'watch'], function(){
 
     browserSync.init(null, {
         server: {
             baseDir: process.env.SERVE_DIR
         },
-        browser: "google chrome",
+        open: "local",
         port: process.env.SERVER_PORT
     });
 

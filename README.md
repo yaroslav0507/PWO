@@ -22,7 +22,7 @@ $ npm start
 
 Your app should now be running on port #4000.
 
-Open [localhost:4000](http://localhost:4000/) in your web browser.
+Default browser should open and display application in the new tab.
 All changes in the code will be immediately reflected in your browser by [browser-sync](http://browsersync.io/)
 
 ## Build commands

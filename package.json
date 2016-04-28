@@ -4,8 +4,8 @@
   "description": "An Ionic project",
   "scripts": {
     "start": "gulp serve",
-    "preinstall": "ionic state restore",
-    "postinstall": "bower cache clean && bower install"
+    "preinstall": "bower cache clean && bower install",
+    "postinstall": "gulp build && ionic state restore"
   },
   "dependencies": {
     "dotenv": "^1.2.0"
