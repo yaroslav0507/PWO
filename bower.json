@@ -7,5 +7,8 @@
     "ngCordova": "^0.1.26-alpha",
     "angular-mocks": "^1.5.5",
     "jquery": "^2.2.3"
+  },
+  "resolutions": {
+    "angular": "1.4.3"
   }
 }
