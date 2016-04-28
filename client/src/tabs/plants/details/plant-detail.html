@@ -12,8 +12,10 @@
             </div>
         </div>
 
-        <div class="bar bar-balanced">
-            <h1 class="title">Watter {{plantDetailCtrl.plant.name}}</h1>
-        </div>
+        <button class="button button-balanced plant-detail__action-button"
+                ng-click="plantDetailCtrl.watterPlant()">
+            Watter {{plantDetailCtrl.plant.name}}
+        </button>
+
     </ion-content>
 </ion-view>

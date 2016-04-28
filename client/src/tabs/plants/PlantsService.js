@@ -14,7 +14,8 @@
 	    addPlant: addPlant,
 	    removePlant: removePlant,
 	    clearAll: clearAll,
-	    getPlant: getPlant
+	    getPlant: getPlant,
+	    updatePlant: updatePlant
 	};
 
 	function initialize(){
@@ -29,6 +30,17 @@
 	    for (var i = 0; i < plants.length; i++) {
 		if (plants[i].id === parseInt(plantId)) {
 		    return plants[i];
+		}
+	    }
+	    return null;
+	}
+
+	function updatePlant(plant) {
+	    for (var i = 0; i < plants.length; i++) {
+		if (plants[i].id === parseInt(plant.id)) {
+		    plants[i] = plant;
+		    DataStore.update(plants);
+		    schedulePlantWateringNotification(plant);
 		}
 	    }
 	    return null;

@@ -9809,9 +9809,14 @@ body {
 
 .pie-chart svg {
   position: absolute;
+  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
   margin: auto; }
+
+.dashboard-chart {
+  height: 300px; }
 
 .plant-detail {
   padding: 25px 10px 10px;
@@ -9827,6 +9832,8 @@ body {
     color: #16a085; }
   .plant-detail__watering-frequency {
     padding-top: 20px; }
+  .plant-detail__action-button {
+    width: 100%; }
 
 .floating-button {
   position: absolute;
