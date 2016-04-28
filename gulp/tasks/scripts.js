@@ -1,6 +1,6 @@
 'use strict';
 
-const seq = require('sequence-stream'),
+const seq = require('merge2'),
     concat = require('gulp-concat'),
     sourcemaps = require('gulp-sourcemaps'),
     templateCache = require('gulp-angular-templatecache'),
@@ -16,8 +16,10 @@ gulp.task('scripts', function () {
     })();
 
     const vendors = gulp.src(config.paths.src.vendors.scripts, {base: 'vendors'});
+    const app = gulp.src(config.paths.src.components, {base: 'src'})
+		.pipe(gulpif(PRODUCTION, ngAnnotate()))
+		.pipe(gulpif(PRODUCTION, uglify()));
 
-    const app = gulp.src(config.paths.src.components, {base: 'src'});
     const views = gulp.src([
 	    './client/src/**/*.html'
 	])
@@ -26,11 +28,11 @@ gulp.task('scripts', function () {
 	}));
 
     // Combine all the streams
-    return seq([vendors, app, views])
+    return seq(vendors, app, views)
 	.pipe(gulpif(!PRODUCTION, sourcemaps.init()))
-	.pipe(gulpif(PRODUCTION, ngAnnotate()))
+
 	.pipe(concat('app.js'))
-	.pipe(gulpif(PRODUCTION, uglify()))
+
 	.pipe(gulpif(!PRODUCTION, sourcemaps.write('./', {sourceRoot: '/client'})))
 	.pipe(gulp.dest('www/js/'))
 	.on('end', browserSync.reload);

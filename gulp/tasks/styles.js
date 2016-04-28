@@ -2,7 +2,7 @@
 
 const sass = require('gulp-sass'),
     concat = require('gulp-concat'),
-    seq = require('sequence-stream'),
+    seq = require('merge2'),
     cssGlobbing = require('gulp-css-globbing'),
     sourcemaps = require('gulp-sourcemaps'),
     minifyCss = require('gulp-minify-css'),

@@ -2,7 +2,8 @@
 var runSequence = require('run-sequence');
 
 gulp.task('build', function(callback){
-    console.log("PRODUCTION MODE: ", process.env.PRODUCTION);
+    console.log(">> BUILD MODE: ", process.env.PRODUCTION ? "PRODUCTION" : "DEVELOPMENT");
+
     runSequence('scripts', 'styles', 'html', 'fonts', 'images', callback)
 });
 
