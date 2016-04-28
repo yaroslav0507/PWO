@@ -45,3 +45,5 @@ There are two ways how you can deploy application to device.
 ## Interface
 
 ![Views](https://www.dropbox.com/s/9rcmth2jer7yoyt/Collage.jpg?dl=1)
+
+PS: All images and content are used for application demonstration and fun :)
