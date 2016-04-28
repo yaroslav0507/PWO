@@ -4,6 +4,7 @@
   "description": "An Ionic project",
   "scripts": {
     "start": "gulp serve",
+    "preinstall": "ionic state restore",
     "postinstall": "bower cache clean && bower install"
   },
   "dependencies": {
@@ -46,6 +47,7 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
+    "https://github.com/katzer/cordova-plugin-local-notifications.git",
     {
       "variables": {
         "SENDER_ID": "api-project-229913235025"

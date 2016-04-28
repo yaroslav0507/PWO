@@ -1,25 +1,47 @@
-Ionic App Base
+Plant Watering Organizer
 =====================
 
-A starting project for Ionic that optionally supports using custom SCSS.
+## Stack of technologies
+<img align="right" src="https://www.dropbox.com/s/ri275hyw3p33ah7/PWO_Logo.png?dl=1" alt="Plant Watering Organizer" height="150px">
+- [Apache Cordova](https://cordova.apache.org/);
+- [Ionic](http://ionicframework.com/);
+- [Angular JS](https://angularjs.org/);
+- [Node JS](https://nodejs.org/);
+- [Gulp](http://gulpjs.com/)
 
-## Using this project
+## Running Locally
 
-We recommend using the [Ionic CLI](https://github.com/driftyco/ionic-cli) to create new Ionic projects that are based on this project but use a ready-made starter template.
+Make sure you have [Node.js](http://nodejs.org/) installed.
 
-For example, to start a new Ionic project with the default tabs interface, make sure the `ionic` utility is installed:
-
-```bash
-$ npm install -g ionic
+```sh
+$ git clone git@github.com:yaroslav0507/PWO.git # or clone your own fork
+$ cd PWO
+$ npm install
+$ npm start
 ```
 
-Then run:
+Your app should now be running on port #4000.
 
-```bash
-$ ionic start myProject tabs
+Open [localhost:4000](http://localhost:4000/) in your web browser.
+All changes in the code will be immediately reflected in your browser by [browser-sync](http://browsersync.io/)
+
+## Build commands
+```sh
+$ ionic build android - for android build
+$ ionic build ios - for ios build
+
+$ ionic emulate android - to start app in AVD
 ```
 
-More info on this can be found on the Ionic [Getting Started](http://ionicframework.com/getting-started) page and the [Ionic CLI](https://github.com/driftyco/ionic-cli) repo.
+## Deploying to device
+There are two ways how you can deploy application to device.
 
-## Issues
-Issues have been disabled on this repo, if you do find an issue or have a question consider posting it on the [Ionic Forum](http://forum.ionicframework.com/).  Or else if there is truly an error, follow our guidelines for [submitting an issue](http://ionicframework.com/submit-issue/) to the main Ionic repository.
+1. Copy apk from `PWO/platforms/android/build/outputs/apk/android-debug.apk` to your device and install it under file system.
+2. Connect device via USB cable and execute next command in console (Android SDK and Ionic CLI is required)
+    `ionic run android` - for android devices
+    `ionic run ios` - for ios devices
+
+
+## Interface
+
+![Views](https://www.dropbox.com/s/9rcmth2jer7yoyt/Collage.jpg?dl=1)
