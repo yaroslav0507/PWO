@@ -7,7 +7,7 @@
 
     function ionAddItem(){
 	return {
-	    templateUrl: 'tabs/plants/ion-add-item/ion-add-item.html',
+	    templateUrl: 'shared/directives/ion-add-item/ion-add-item.html',
 	    restrict: 'EA',
 	    scope: {
 		targetState: '@'

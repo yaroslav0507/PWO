@@ -5,8 +5,7 @@
         .module('app')
         .controller('NewPlantController', NewPlantController);
 
-    function NewPlantController(PlantsService, $state, targetState, DEFAULT_CHART_OPTIONS) {
-        var DEFAULT_WATERING_FREQUENCY = 8;
+    function NewPlantController(PlantsService, $state, targetState, DEFAULT_CHART_OPTIONS, DEFAULT_WATERING_FREQUENCY) {
         var vm = this;
 
         angular.extend(vm, {

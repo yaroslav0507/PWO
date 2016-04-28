@@ -5,8 +5,7 @@
     	.module('app')
     	.factory('DataStore', DataStore);
 
-    function DataStore(){
-	var STORAGE_NAME = 'PlantAppStore';
+    function DataStore(LOCAL_STORAGE_KEY){
 
 	return {
 	    update: update,
@@ -15,15 +14,15 @@
 	};
 
 	function update(data) {
-	    window.localStorage.setItem(STORAGE_NAME, JSON.stringify(data));
+	    window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
 	}
 
 	function get() {
-	    return JSON.parse(window.localStorage.getItem(STORAGE_NAME)) || [];
+	    return JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
 	}
 
 	function clear() {
-	    window.localStorage.removeItem(STORAGE_NAME);
+	    window.localStorage.removeItem(LOCAL_STORAGE_KEY);
 	}
     }
 

@@ -13,13 +13,11 @@
 		}
 
 		if (window.StatusBar) {
-		    // org.apache.cordova.statusbar required
 		    StatusBar.styleDefault();
 		}
 
 		$rootScope.$on('$cordovaLocalNotification:trigger', function(event, notification, state) {
 		    $cordovaVibration.vibrate(1000);
-		    console.log("Local notification was triggered");
 		})
 	    });
 	})

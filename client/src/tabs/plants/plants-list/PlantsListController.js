@@ -3,9 +3,9 @@
 
     angular
 	.module('app')
-	.controller('PlantsController', PlantsController);
+	.controller('PlantsListController', PlantsListController);
 
-    function PlantsController(PlantsService, plants) {
+    function PlantsListController(PlantsService, plants) {
 	var vm = this;
 
 	angular.extend(vm, {
@@ -26,6 +26,5 @@
 	function isSelectedItem(item){
 	    return item === vm.itemSelected;
 	}
-	console.log('>> list init');
     }
 })();

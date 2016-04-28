@@ -3,9 +3,9 @@
 
     angular
 	.module('app')
-	.controller('AccountController', AccountController);
+	.controller('SettingsController', SettingsController);
 
-    function AccountController(PlantsService, $state, stateAfterClearAll, NotificationService) {
+    function SettingsController(PlantsService, $state, targetState, NotificationService) {
 	var vm = this;
 
 	angular.extend(vm, {
@@ -15,7 +15,7 @@
 
 	function clearAll(){
 	    PlantsService.clearAll();
-	    $state.go(stateAfterClearAll);
+	    $state.go(targetState);
 	}
 
 	function pushNotification(){

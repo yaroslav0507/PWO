@@ -5,7 +5,7 @@
 	.module('app')
 	.factory('PlantsService', PlantsService);
 
-    function PlantsService(DataStore, NotificationService) {
+    function PlantsService(DataStore, NotificationService, DEFAULT_PLANT_IMAGE, HOURS_TO_MILLISECONDS) {
 	var plants;
 	initialize();
 
@@ -47,8 +47,6 @@
 	}
 
 	function addPlant(plant) {
-	    var DEFAULT_PLANT_IMAGE = './img/Graphicloads-Food-Drink-Leaf.ico';
-	    var hoursToMiliseconds = 3600000;
 
 	    if (!plants) {
 		plants = [];
@@ -70,7 +68,7 @@
 	    }
 
 	    function getNextWatering(wateringFrequency){
-		return new Date().getTime() + wateringFrequency * hoursToMiliseconds;
+		return new Date().getTime() + wateringFrequency * HOURS_TO_MILLISECONDS;
 	    }
 
 	    function generateIndex(){
