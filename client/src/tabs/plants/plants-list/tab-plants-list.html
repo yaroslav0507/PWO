@@ -2,12 +2,13 @@
 
     <ion-content>
         <div class="plants-list-splash-screen"
-             ng-if="!plantsListCtrl.plants.length">
+             ng-class="{'fade-in': !plantsListCtrl.plants.length}"
+             ng-show="!plantsListCtrl.plants.length">
 
             <i class="icon ion-ios-rose-outline plants-list-splash-screen__icon"></i>
-            <div class="col col-33 col-offset-33">
-                You have no plants
-                tap plus icon to add new
+            <div class="plants-list-splash-screen__text">
+                You have no plants <br>
+                Tap plus icon to add new
             </div>
         </div>
 
