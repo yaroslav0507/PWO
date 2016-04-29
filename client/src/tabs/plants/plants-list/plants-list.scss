@@ -5,3 +5,21 @@
     color: #44b39d;
   }
 }
+
+.plants-list-splash-screen{
+  text-align: center;
+  font-size: 50px;
+  color: #C5C5C5;
+  height: 70%;
+  margin-top: 15%;
+
+  &__icon{
+    display: inline-block;
+    font-size: 190px;
+    color: #44B39D;
+  }
+
+  &__text{
+    display: inline-block;
+  }
+}

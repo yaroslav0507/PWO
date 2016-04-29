@@ -10,7 +10,6 @@ env:
 
 deploy:
   provider: releases
-  api_key: "67ba8152785bf6708922caa4b54c0cc443698a63"
   file: "./www/index.html"
   skip_cleanup: true
   on:

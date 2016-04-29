@@ -1,6 +1,17 @@
 <ion-view view-title="Plants">
+
     <ion-content>
-        <ion-list>
+        <div class="plants-list-splash-screen"
+             ng-if="!plantsListCtrl.plants.length">
+
+            <i class="icon ion-ios-rose-outline plants-list-splash-screen__icon"></i>
+            <div class="col col-33 col-offset-33">
+                You have no plants
+                tap plus icon to add new
+            </div>
+        </div>
+
+        <ion-list ng-if="plantsListCtrl.plants.length">
 
             <ion-item class="item-remove-animate item-avatar item-icon-right plant"
                       ng-repeat="plant in plantsListCtrl.plants track by $index"
