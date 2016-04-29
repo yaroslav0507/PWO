@@ -3,3 +3,19 @@ node_js:
   - "5"
 before_install:
   - npm install -g cordova ionic
+
+env:
+  global:
+    - GH_REF: "https://github.com/yaroslav0507/PWO"
+
+deploy:
+  provider: releases
+  api_key: "67ba8152785bf6708922caa4b54c0cc443698a63"
+  file: "./www/index.html"
+  skip_cleanup: true
+  on:
+    tags: true
+
+after_deploy:
+  - "echo 'deployed!'"
+  - ./deploy-gh-pages.sh
