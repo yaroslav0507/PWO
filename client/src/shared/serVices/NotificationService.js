@@ -26,10 +26,7 @@
 	function scheduleDelayedNotification(config) {
 	    _ionicPlatformReady(function () {
 		$cordovaLocalNotification
-		    .schedule(config)
-		    .then(function () {
-			console.log('--> Delayed notification triggered');
-		    });
+		    .schedule(config);
 	    });
 	}
 

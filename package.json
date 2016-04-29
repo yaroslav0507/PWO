@@ -49,6 +49,7 @@
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
+    "cordova-plugin-vibration",
     "ionic-plugin-keyboard",
     "https://github.com/katzer/cordova-plugin-local-notifications.git",
     {

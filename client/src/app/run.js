@@ -3,7 +3,7 @@
 
     angular
 	.module('app')
-	.run(function ($ionicPlatform, $rootScope, $cordovaVibration) {
+	.run(function ($ionicPlatform, $rootScope, $cordovaVibration, $ionicPopup) {
 	    $ionicPlatform.ready(function () {
 		// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
 		// for form inputs)
@@ -17,6 +17,14 @@
 		}
 
 		$rootScope.$on('$cordovaLocalNotification:trigger', function(event, notification, state) {
+		    $ionicPopup.show({
+			title: notification.title,
+			subTitle: 'then check it in plant details',
+			template: '<div style="text-align: center">' + notification.text + '</div>',
+			buttons: [{
+			    text: 'Ok'
+			}]
+		    });
 		    $cordovaVibration.vibrate(1000);
 		})
 	    });
