@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/yaroslav0507/PWO.svg?branch=master)](https://travis-ci.org/yaroslav0507/PWO)
 Plant Watering Organizer
 =====================
 
