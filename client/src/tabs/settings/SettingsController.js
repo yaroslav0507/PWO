@@ -5,12 +5,13 @@
 	.module('app')
 	.controller('SettingsController', SettingsController);
 
-    function SettingsController(PlantsService, $state, targetState, NotificationService) {
+    function SettingsController(PlantsService, ToastService, $state, targetState, NotificationService) {
 	var vm = this;
 
 	angular.extend(vm, {
 	    clearAll: clearAll,
-	    pushNotification: pushNotification
+	    pushNotification: pushNotification,
+	    showToast: showToast
 	});
 
 	function clearAll(){
@@ -20,6 +21,10 @@
 
 	function pushNotification(){
 	    NotificationService.scheduleSingleNotification();
+	}
+
+	function showToast(){
+	    ToastService.showToast('Mock toast');
 	}
     }
 })();

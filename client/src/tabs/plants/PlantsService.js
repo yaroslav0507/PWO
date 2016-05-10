@@ -5,7 +5,7 @@
 	.module('app')
 	.factory('PlantsService', PlantsService);
 
-    function PlantsService(DataStore, NotificationService, DEFAULT_PLANT_IMAGE, HOURS_TO_MILLISECONDS) {
+    function PlantsService(DataStore, NotificationService, ToastService, DEFAULT_PLANT_IMAGE, HOURS_TO_MILLISECONDS) {
 	var plants;
 	initialize();
 
@@ -59,6 +59,7 @@
 		nextWatering: getNextWatering(plant.wateringFrequency)
 	    });
 	    schedulePlantWateringNotification(plant);
+	    ToastService.showToast(plant.name + ' is need to be watered every ' + plant.wateringFrequency + (plant.wateringFrequency != 1 ? 'hrs.' : 'hr'));
 
 	    plants.push(plant);
 	    DataStore.update(plants);

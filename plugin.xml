@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="com.matd.myplugin"
+    version="0.2.11">
+    <name>MyPlugin</name>
+    <description>The toast plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova my plugin</keywords>
+    <repo></repo>
+    <issue></issue>
+
+    <js-module src="www/MyPlugin.js" name="MyPlugin">
+        <clobbers target="MyPlugin" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="MyPlugin" >
+                <param name="android-package" value="MyPlugin"/>
+            </feature>
+        </config-file>
+        <source-file src="client/src/plugin/android/MyPlugin.java" target-dir="src/" />
+    </platform>
+
+</plugin>
