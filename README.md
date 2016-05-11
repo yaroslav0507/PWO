@@ -8,7 +8,7 @@ Also you can [download APK](http://yaroslav0507.github.io/PWO/android-debug.apk)
 Demo page is generated on `travis-ci`. It deploys to `gh-pages` automaticaly every time when build is successfull.
 
 ### Dependency
-For this application I've written a [Toaster plugin](https://github.com/yaroslav0507/cordova-plugin-toaster). It gives us and opportunity to use native android toasts. Plugin is published to `NPM` and installs automatically.
+For this application I've written a [Toaster plugin](https://github.com/yaroslav0507/cordova-plugin-toaster). It gives you an opportunity to use native android toasts. Plugin is published to `NPM` and installs automatically.
 
 ## Stack of technologies
 <img align="right" src="https://www.dropbox.com/s/ri275hyw3p33ah7/PWO_Logo.png?dl=1" alt="Plant Watering Organizer" height="150px">
