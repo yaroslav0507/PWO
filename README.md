@@ -2,14 +2,6 @@
 Plant Watering Organizer
 =====================
 
-### Demo
-You can visit [demo page](http://yaroslav0507.github.io/PWO) of web version. Note that some features such as notifications and vibration would not work.
-Also you can [download APK](http://yaroslav0507.github.io/PWO/android-debug.apk) and install it on your device. 
-Demo page is generated on `travis-ci`. It deploys to `gh-pages` automaticaly every time when build is successfull.
-
-### Dependency
-For this application I've written a [Toaster plugin](https://github.com/yaroslav0507/cordova-plugin-toaster). It gives you an opportunity to use native android toasts. Plugin is published to `NPM` and installs automatically.
-
 ## Stack of technologies
 <img align="right" src="https://www.dropbox.com/s/ri275hyw3p33ah7/PWO_Logo.png?dl=1" alt="Plant Watering Organizer" height="150px">
 - [Apache Cordova](https://cordova.apache.org/);
@@ -17,6 +9,14 @@ For this application I've written a [Toaster plugin](https://github.com/yaroslav
 - [Angular JS](https://angularjs.org/);
 - [Node JS](https://nodejs.org/);
 - [Gulp](http://gulpjs.com/)
+
+### Demo
+You can visit [demo page](http://yaroslav0507.github.io/PWO) of web version. Note that some features such as notifications and vibration would not work.
+Also you can [download APK](http://yaroslav0507.github.io/PWO/android-debug.apk) and install it on your device. 
+Demo page is generated on `travis-ci`. It deploys to `gh-pages` automaticaly every time when build is successfull.
+
+### Dependency
+For this application I've written a [Toaster plugin](https://github.com/yaroslav0507/cordova-plugin-toaster). It gives you an opportunity to use native android toasts. Plugin is published to `NPM` and installs automatically.
 
 ## Running Locally
 
