@@ -8,7 +8,7 @@ env:
     - COMMIT_AUTHOR_EMAIL: yaroslav0507@gmail.com
 branches:
   only:
-    - develop
+    - master
 cache:
   directories:
     - node_modules
