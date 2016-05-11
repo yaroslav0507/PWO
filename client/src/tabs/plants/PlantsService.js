@@ -80,11 +80,13 @@
 	function removePlant(plant) {
 	    plants.splice(plants.indexOf(plant), 1);
 	    DataStore.update(plants);
+	    NotificationService.clear(plant.id);
 	}
 
 	function clearAll() {
 	    plants.splice(0, plants.length);
 	    DataStore.clear();
+	    NotificationService.clearAll();
 	}
 
 	function schedulePlantWateringNotification(plant){

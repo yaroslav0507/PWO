@@ -8,7 +8,9 @@
     function NotificationService($cordovaLocalNotification, $ionicPlatform) {
 	return {
 	    scheduleSingleNotification: scheduleSingleNotification,
-	    scheduleDelayedNotification: scheduleDelayedNotification
+	    scheduleDelayedNotification: scheduleDelayedNotification,
+	    clearAllNotifications: clearAllNotifications,
+	    removeNotification: removeNotification
 	};
 
 	function scheduleSingleNotification() {
@@ -36,6 +38,14 @@
 		    cb()
 		}
 	    })
+	}
+
+	function clearAllNotifications(){
+	    $cordovaLocalNotification.clearAll();
+	}
+
+	function removeNotification(id){
+	    $cordovaLocalNotification.clear(id);
 	}
     }
 
