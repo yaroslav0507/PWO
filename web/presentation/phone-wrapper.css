@@ -1,0 +1,40 @@
+body{
+    background-color: #3498db;
+    background: url(nexus-bg.jpg);
+}
+
+.phone-wrapper{
+    background: url('nexus5-600.png');
+    width: 337px;
+    height: 663px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+    .phone-wrapper__display{
+        overflow: hidden;
+        width: 304px;
+        height: 540px;
+        position: absolute;
+        left: 16px;
+        top: 57px;
+    }
+
+.dowload-link{
+    position: absolute;
+    bottom: 25px;
+    width: 100%;
+    text-align: center;
+}
+
+    .dowload-link a {
+        color: #44B39D;
+        text-decoration: none;
+    }
+    .dowload-link a:hover {
+        color: #fff;
+    }
