@@ -56,7 +56,8 @@ ENCRYPTED_IV_VAR="encrypted_${ENCRYPTION_LABEL}_iv"
 ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
 ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
 
-openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in ../ssh.enc -out ssh -d
+# openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in ../ssh.enc -out ssh -d
+openssl aes-256-cbc -K $encrypted_95017743069c_key -iv $encrypted_95017743069c_iv -in ssh.enc -out ssh -d
 
 chmod 600 ssh
 eval `ssh-agent -s`
