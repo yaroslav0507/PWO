@@ -1,6 +1,10 @@
-language: node_js
-node_js:
-  - '5.10'
+language: android
+android:
+  components:
+    - platform-tools
+    - build-tools-23.0.1
+    - android-23
+
 before_install:
   - npm install -g cordova ionic
 script: bash ./deploy.sh
