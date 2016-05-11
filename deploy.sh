@@ -6,7 +6,6 @@ TARGET_BRANCH="gh-pages"
 
 function doCompile {
   npm run postinstall
-  cordova build android
   gulp copyWebPresentation
 }
 
