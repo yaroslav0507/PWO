@@ -5,7 +5,7 @@ SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
 
 function doCompile {
-  npm run build
+  npm run postinstall
 }
 
 # Pull requests and commits to other branches shouldn't try to deploy, just build to verify
@@ -21,6 +21,8 @@ SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:}
 SHA=`git rev-parse --verify HEAD`
 
 # Clone the existing master for this repo into www/
+
+rm -rf www || exit 0
 git clone $REPO www
 cd www
 git checkout $TARGET_BRANCH
