@@ -25,7 +25,7 @@ SHA=`git rev-parse --verify HEAD`
 rm -rf www || exit 0
 git clone $REPO www
 cd www
-git checkout $TARGET_BRANCH
+git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 cd ..
 
 # Clean out existing contents
