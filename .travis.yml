@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - '5.10'
+before_install:
+  - npm install -g cordova ionic
+script: bash ./deploy.sh
+env:
+  global:
+    - ENCRYPTION_LABEL: 95017743069c
+    - COMMIT_AUTHOR_EMAIL: yaroslav0507@gmail.com
+branches:
+  only:
+    - master
+cache:
+  directories:
+    - node_modules
+
+
+
