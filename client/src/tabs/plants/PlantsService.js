@@ -86,7 +86,7 @@
 	function clearAll() {
 	    plants.splice(0, plants.length);
 	    DataStore.clear();
-	    NotificationService.clearAll();
+	    NotificationService.clearAllNotifications();
 	}
 
 	function schedulePlantWateringNotification(plant){

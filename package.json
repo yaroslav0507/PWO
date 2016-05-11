@@ -52,6 +52,7 @@
     "cordova-plugin-vibration",
     "ionic-plugin-keyboard",
     "https://github.com/katzer/cordova-plugin-local-notifications.git",
+    "cordova-plugin-toaster",
     {
       "variables": {
         "SENDER_ID": "api-project-229913235025"

@@ -1,20 +1,14 @@
 language: node_js
 node_js:
-  - "5"
-before_install:
-  - npm install -g cordova ionic
-
+  - '5.10'
+script: bash ./deploy.sh
 env:
   global:
-    - GH_REF: "https://github.com/yaroslav0507/PWO"
-
-deploy:
-  provider: releases
-  file: "./www/index.html"
-  skip_cleanup: true
-  on:
-    tags: true
-
-after_deploy:
-  - "echo 'deployed!'"
-  - ./deploy-gh-pages.sh
+    - ENCRYPTION_LABEL: 95017743069c
+    - COMMIT_AUTHOR_EMAIL: yaroslav0507@gmail.com
+branches:
+  only:
+    - develop
+cache:
+  directories:
+    - node_modules
